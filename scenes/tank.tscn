@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbbdp2couyfd7"]
+
+[ext_resource type="Script" path="res://scripts/movement_controller.gd" id="1_v2vwm"]
+[ext_resource type="Script" path="res://scenes/turret_controller.gd" id="2_oetdt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4mrvy"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_f8eut"]
+
+[node name="Tank" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.417561, 0)
+
+[node name="Tank" type="CharacterBody3D" parent="."]
+script = ExtResource("1_v2vwm")
+speed = 200.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tank"]
+transform = Transform3D(0.754241, 0, 0, 0, 0.449535, 0, 0, 0, 1.01179, 0, 0, 0)
+shape = SubResource("BoxShape3D_4mrvy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tank"]
+transform = Transform3D(0.754241, 0, 0, 0, 0.449535, 0, 0, 0, 1.01179, 0, 0, 0)
+mesh = SubResource("BoxMesh_f8eut")
+
+[node name="Turret" type="StaticBody3D" parent="Tank"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.319067, 0)
+script = ExtResource("2_oetdt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tank/Turret"]
+transform = Transform3D(0.401513, 0, 0, 0, 0.255422, 0, 0, 0, 0.535049, 0, 0, 0)
+shape = SubResource("BoxShape3D_4mrvy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tank/Turret"]
+transform = Transform3D(0.401513, 0, 0, 0, 0.255422, 0, 0, 0, 0.535049, 0, 0, 0)
+mesh = SubResource("BoxMesh_f8eut")
+skeleton = NodePath("")
+
+[node name="Cannon" type="StaticBody3D" parent="Tank/Turret"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.319067, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tank/Turret/Cannon"]
+transform = Transform3D(0.113943, 0, 0, 0, 0.0680282, 0, 0, 0, 0.867339, -0.00105453, -0.271005, -0.436536)
+shape = SubResource("BoxShape3D_4mrvy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tank/Turret/Cannon"]
+transform = Transform3D(0.068, 0, 0, 0, 0.068, 0, 0, 0, 0.867, -0.00105453, -0.271005, -0.436536)
+mesh = SubResource("BoxMesh_f8eut")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Tank/Turret/Cannon"]
+transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.161, -0.00105453, -0.271005, -0.234851)
+mesh = SubResource("BoxMesh_f8eut")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Tank/Turret/Cannon"]
+transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.161, 0.00059104, -0.271005, -0.816296)
+mesh = SubResource("BoxMesh_f8eut")
+skeleton = NodePath("")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.946215, 0.323538, 0, -0.323538, 0.946215, 0, 2.85033, 3.6771)
