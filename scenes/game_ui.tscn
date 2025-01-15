@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2got3actbsyc"]
+
+[ext_resource type="Texture2D" uid="uid://cdkdewjr0rbmj" path="res://icon.svg" id="1_jtivy"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_i3vkt"]
+
+[node name="GameUI" type="CanvasLayer"]
+
+[node name="SpeedLabel" type="Label" parent="."]
+offset_left = 66.0
+offset_top = 572.0
+offset_right = 106.0
+offset_bottom = 595.0
+text = "SPD"
+
+[node name="GearLabel" type="Label" parent="."]
+offset_left = 66.0
+offset_top = 522.0
+offset_right = 108.0
+offset_bottom = 545.0
+text = "GEAR
+"
+
+[node name="RevolutionLabel" type="Label" parent="."]
+offset_left = 66.0
+offset_top = 548.0
+offset_right = 106.0
+offset_bottom = 571.0
+text = "REVS"
+
+[node name="Crosshair" type="Node2D" parent="."]
+
+[node name="CrosshairOuter" type="Sprite2D" parent="Crosshair"]
+modulate = Color(1, 1, 1, 0.360784)
+texture = ExtResource("1_jtivy")
+
+[node name="CrosshairInner" type="Sprite2D" parent="Crosshair"]
+modulate = Color(0.696037, 0.0182899, 0.0199804, 1)
+material = SubResource("CanvasItemMaterial_i3vkt")
+scale = Vector2(0.0266283, 0.0266283)
+texture = ExtResource("1_jtivy")
