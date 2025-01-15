@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dbbdp2couyfd7"]
+[gd_scene load_steps=5 format=3 uid="uid://dbbdp2couyfd7"]
 
-[ext_resource type="Script" path="res://scripts/main_camera.gd" id="1_fiko5"]
 [ext_resource type="Script" path="res://scripts/movement_controller.gd" id="1_v2vwm"]
-[ext_resource type="Script" path="res://scripts/turret_controller.gd" id="2_oetdt"]
+[ext_resource type="Script" path="res://scenes/turret_controller.gd" id="2_oetdt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sm4ti"]
 size = Vector3(0.661133, 0.625977, 0.912109)
@@ -16,48 +15,42 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.417561, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10498, 0)
 shape = SubResource("BoxShape3D_sm4ti")
 
-[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("target_tank")]
-transform = Transform3D(1, 0, 0, 0, 0.946215, 0.323538, 0, -0.323538, 0.946215, 0, 2.85033, 3.6771)
-current = true
-script = ExtResource("1_fiko5")
-follow_distance = -6.0
-follow_height = 3.0
-follow_speed = 2.0
-target_tank = NodePath("../Chassis")
-
-[node name="Chassis" type="Node3D" parent="."]
+[node name="Tank" type="Node3D" parent="."]
 script = ExtResource("1_v2vwm")
-turn_speed = 1.0
-gravity = -9.8
+speed = 200.0
+gravity = 0.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Chassis"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tank"]
 transform = Transform3D(0.754241, 0, 0, 0, 0.449535, 0, 0, 0, 1.01179, 0, 0, 0)
 mesh = SubResource("BoxMesh_f8eut")
 
-[node name="Turret" type="Node3D" parent="Chassis"]
+[node name="Turret" type="Node3D" parent="Tank"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.319067, 0)
 script = ExtResource("2_oetdt")
-rotation_speed = 1.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Chassis/Turret"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tank/Turret"]
 transform = Transform3D(0.401513, 0, 0, 0, 0.255422, 0, 0, 0, 0.535049, 0, 0, 0)
 mesh = SubResource("BoxMesh_f8eut")
 skeleton = NodePath("")
 
-[node name="Cannon" type="Node3D" parent="Chassis/Turret"]
+[node name="Cannon" type="Node3D" parent="Tank/Turret"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.319067, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Chassis/Turret/Cannon"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tank/Turret/Cannon"]
 transform = Transform3D(0.068, 0, 0, 0, 0.068, 0, 0, 0, 0.867, -0.00105453, -0.271005, -0.436536)
 mesh = SubResource("BoxMesh_f8eut")
 skeleton = NodePath("")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Chassis/Turret/Cannon"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Tank/Turret/Cannon"]
 transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.161, -0.00105453, -0.271005, -0.234851)
 mesh = SubResource("BoxMesh_f8eut")
 skeleton = NodePath("")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Chassis/Turret/Cannon"]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Tank/Turret/Cannon"]
 transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.161, 0.00059104, -0.271005, -0.816296)
 mesh = SubResource("BoxMesh_f8eut")
 skeleton = NodePath("")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.946215, 0.323538, 0, -0.323538, 0.946215, 0, 2.85033, 3.6771)
+current = true
