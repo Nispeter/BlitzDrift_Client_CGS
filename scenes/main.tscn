@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://co4be7xvnkgcq"]
 
-[ext_resource type="PackedScene" uid="uid://dbbdp2couyfd7" path="res://scenes/tank.tscn" id="1_0k8ud"]
+[ext_resource type="PackedScene" uid="uid://dbbdp2couyfd7" path="res://scenes/tank_prefab.tscn" id="1_0k8ud"]
 [ext_resource type="PackedScene" uid="uid://b2got3actbsyc" path="res://scenes/game_ui.tscn" id="2_jix3s"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6agdm"]
-size = Vector3(100.235, 0.001, 99.7986)
+size = Vector3(359.494, 0.001, 376.911)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nojij"]
 albedo_color = Color(0.0923971, 0.0923971, 0.0923971, 1)

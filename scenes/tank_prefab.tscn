@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dbbdp2couyfd7"]
+[gd_scene load_steps=9 format=3 uid="uid://dbbdp2couyfd7"]
 
 [ext_resource type="Script" path="res://scripts/main_camera.gd" id="1_fiko5"]
 [ext_resource type="Script" path="res://scripts/movement_controller.gd" id="1_v2vwm"]
 [ext_resource type="Script" path="res://scripts/turret_controller.gd" id="2_oetdt"]
 [ext_resource type="Script" path="res://scripts/cannon_controller.gd" id="4_f5cxv"]
+[ext_resource type="Script" path="res://scripts/shoot_manager.gd" id="5_xbxxm"]
+[ext_resource type="PackedScene" uid="uid://bil56lwrmv3t0" path="res://scenes/ammo_prefab.tscn" id="6_frg28"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sm4ti"]
 size = Vector3(0.661133, 0.625977, 0.912109)
@@ -49,6 +51,13 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.319067, 0)
 script = ExtResource("4_f5cxv")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Chassis/Turret/Cannon"]
+
+[node name="ShootManager" type="Node3D" parent="Chassis/Turret/Cannon"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.267528, -0.962894)
+script = ExtResource("5_xbxxm")
+ammo_scene = ExtResource("6_frg28")
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Chassis/Turret/Cannon"]
 transform = Transform3D(0.068, 0, 0, 0, 0.068, 0, 0, 0, 0.867, -0.00105453, -0.271005, -0.436536)
 mesh = SubResource("BoxMesh_f8eut")
@@ -65,6 +74,6 @@ mesh = SubResource("BoxMesh_f8eut")
 skeleton = NodePath("")
 
 [node name="RayCast3D" type="RayCast3D" parent="Chassis/Turret/Cannon"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.261057, -0.902887)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.261057, -1.01159)
 target_position = Vector3(0, 0, -30)
 debug_shape_thickness = 5

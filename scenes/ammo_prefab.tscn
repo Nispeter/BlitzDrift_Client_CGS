@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bil56lwrmv3t0"]
+
+[ext_resource type="Script" path="res://scripts/explosive_ammo.gd" id="1_khhfi"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v7x47"]
+radius = 3.68239
+height = 11.5588
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_emflv"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_el6ig"]
+
+[node name="Ammo" type="RigidBody3D" groups=["Projectiles"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.23059)
+gravity_scale = 4.0
+script = ExtResource("1_khhfi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["Projectiles"]]
+transform = Transform3D(0.0166841, 0, 0, 0, -1.18335e-09, -0.0161998, 0, 0.0270718, -7.08116e-10, 0, -2.98023e-08, 0.0623178)
+shape = SubResource("CapsuleShape3D_v7x47")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." groups=["Projectiles"]]
+transform = Transform3D(0.0901845, 0, 0, 0, -6.39646e-09, -0.0875663, 0, 0.146334, -3.82764e-09, 0, -2.98023e-08, 0.0901375)
+mesh = SubResource("CapsuleMesh_emflv")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." groups=["Projectiles"]]
+transform = Transform3D(0.0901845, 0, 0, 0, 0.0875663, 0, 0, 0, 0.151946, 0, -2.98023e-08, 0.160896)
+mesh = SubResource("BoxMesh_el6ig")
+
+[connection signal="body_entered" from="." to="." method="_on_collision"]
