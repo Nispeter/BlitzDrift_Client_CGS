@@ -22,16 +22,17 @@ func _ready():
 
 func _on_collision(body: Node) -> void:
 	super._on_collision(body)
+	#TODO: get normal for ricochet
 	explode()
 
 func explode() -> void:
 	print("ammo exploding")
-	explosion_area.disabled = false
-	for body in explosion_area.get_overlapping_bodies():
-		if body is RigidBody3D:
-			var direction = body.position - global_transform.origin
-			direction = direction.normalized()
-			body.apply_impulse(direction * explosion_force)
+	#explosion_area.disabled = false
+	#for body in explosion_area.get_overlapping_bodies():
+		#if body is RigidBody3D:
+			#var direction = body.position - global_transform.origin
+			#direction = direction.normalized()
+			#body.apply_impulse(direction * explosion_force)
 	queue_free()
 
 func _on_body_entered(body: Node) -> void:

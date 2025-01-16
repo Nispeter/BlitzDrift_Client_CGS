@@ -13,6 +13,8 @@ height = 11.5588
 [node name="Ammo" type="RigidBody3D" groups=["Projectiles"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.23059)
 gravity_scale = 4.0
+contact_monitor = true
+max_contacts_reported = 1000
 script = ExtResource("1_khhfi")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["Projectiles"]]
