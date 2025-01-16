@@ -121,7 +121,7 @@ func stop_motor():
 
 # Handle input for gear shifting
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("gear_up") and revolutions > high_rev_threshhold and current_gear != "4" and current_gear != "R":
+	if event.is_action_pressed("gear_up") and (revolutions > high_rev_threshhold or current_gear == "N") and current_gear != "4" and current_gear != "R":
 		shift_gear_up()
 	elif event.is_action_pressed("gear_up") and current_gear == "R" and revolutions < low_rev_threshold:
 		shift_gear_up()

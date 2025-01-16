@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b2got3actbsyc"]
+[gd_scene load_steps=5 format=3 uid="uid://b2got3actbsyc"]
 
-[ext_resource type="Texture2D" uid="uid://cdkdewjr0rbmj" path="res://icon.svg" id="1_jtivy"]
+[ext_resource type="Texture2D" uid="uid://cfs6385i8ltlq" path="res://assets/images/reload_circle.png" id="2_4ucu6"]
+[ext_resource type="Texture2D" uid="uid://bpx1dhwnwvjad" path="res://assets/images/dot.png" id="3_8wak1"]
+[ext_resource type="Texture2D" uid="uid://d4na5qrq4rlki" path="res://assets/images/reload_circle_border.png" id="3_rufdb"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_i3vkt"]
 
@@ -28,14 +30,48 @@ offset_right = 106.0
 offset_bottom = 571.0
 text = "REVS"
 
+[node name="AmmoLabel" type="Label" parent="."]
+offset_left = 1041.0
+offset_top = 572.0
+offset_right = 1094.0
+offset_bottom = 595.0
+text = "AMMO"
+
 [node name="Crosshair" type="Node2D" parent="."]
 
 [node name="CrosshairOuter" type="Sprite2D" parent="Crosshair"]
 modulate = Color(1, 1, 1, 0.360784)
-texture = ExtResource("1_jtivy")
+
+[node name="Reloadbar" type="TextureProgressBar" parent="Crosshair/CrosshairOuter"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -83.5
+offset_top = -83.5
+offset_right = 684.5
+offset_bottom = 684.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.216996, 0.216996)
+value = 100.0
+fill_mode = 4
+texture_under = ExtResource("2_4ucu6")
+texture_over = ExtResource("3_rufdb")
+texture_progress = ExtResource("2_4ucu6")
+tint_under = Color(0, 0, 0, 0.14902)
+tint_progress = Color(6.64204e-06, 0.919165, 0.685566, 1)
 
 [node name="CrosshairInner" type="Sprite2D" parent="Crosshair"]
-modulate = Color(0.696037, 0.0182899, 0.0199804, 1)
 material = SubResource("CanvasItemMaterial_i3vkt")
-scale = Vector2(0.0266283, 0.0266283)
-texture = ExtResource("1_jtivy")
+position = Vector2(0, 3)
+scale = Vector2(0.0986447, 0.0986447)
+texture = ExtResource("3_8wak1")
+
+[node name="CrosshairInner" type="Sprite2D" parent="Crosshair/CrosshairInner"]
+self_modulate = Color(0.180392, 0.509804, 0.427451, 1)
+material = SubResource("CanvasItemMaterial_i3vkt")
+position = Vector2(0, -1.66893e-06)
+scale = Vector2(0.941541, 0.941541)
+texture = ExtResource("3_8wak1")

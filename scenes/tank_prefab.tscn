@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dbbdp2couyfd7"]
+[gd_scene load_steps=12 format=3 uid="uid://dbbdp2couyfd7"]
 
 [ext_resource type="Script" path="res://scripts/main_camera.gd" id="1_fiko5"]
 [ext_resource type="Script" path="res://scripts/movement_controller.gd" id="1_v2vwm"]
@@ -11,6 +11,40 @@
 size = Vector3(0.661133, 0.625977, 0.912109)
 
 [sub_resource type="BoxMesh" id="BoxMesh_f8eut"]
+
+[sub_resource type="Animation" id="Animation_be5oe"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_8pb1j"]
+resource_name = "recoil"
+length = 0.5
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.00105453, -0.271005, -0.436536, 0.0666667, 1, -0.00105453, -0.271005, -0.210372, 0.5, 1, -0.00105453, -0.271005, -0.436536)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D2")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.000869036, -0.271599, -0.818788, 0.0666667, 1, 0.000869036, -0.271599, -0.571448, 0.5, 1, 0.000869036, -0.271599, -0.818788)
+tracks/2/type = "position_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeshInstance3D3")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0, -0.266428, -0.310117, 0.233333, 1, 0, -0.266428, -0.171508, 0.5, 1, 0, -0.266428, -0.310117)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w6h36"]
+_data = {
+"RESET": SubResource("Animation_be5oe"),
+"recoil": SubResource("Animation_8pb1j")
+}
 
 [node name="Tank" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.417561, 0)
@@ -52,6 +86,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.319067, 0)
 script = ExtResource("4_f5cxv")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Chassis/Turret/Cannon"]
+libraries = {
+"": SubResource("AnimationLibrary_w6h36")
+}
 
 [node name="ShootManager" type="Node3D" parent="Chassis/Turret/Cannon"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.267528, -0.962894)
@@ -64,12 +101,12 @@ mesh = SubResource("BoxMesh_f8eut")
 skeleton = NodePath("")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Chassis/Turret/Cannon"]
-transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.161, -0.00105453, -0.271005, -0.234851)
+transform = Transform3D(0.0887975, 0, 0, 0, 0.0923331, 0, 0, 0, 0.263755, 0.000869036, -0.271599, -0.818788)
 mesh = SubResource("BoxMesh_f8eut")
 skeleton = NodePath("")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="Chassis/Turret/Cannon"]
-transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.161, 0.00059104, -0.271005, -0.816296)
+transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.263485, 0, -0.266428, -0.310117)
 mesh = SubResource("BoxMesh_f8eut")
 skeleton = NodePath("")
 
