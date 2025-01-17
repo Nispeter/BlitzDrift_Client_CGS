@@ -3,74 +3,72 @@ extends Node3D
 @export var base_speed: float = 10.0         # Base speed for the tank
 @export var turn_speed: float = 2.0         # Turning speed
 @export var gravity: float = -1             # Simulated gravity
+@export var base_jump_force: float = 6      # Force applied for a jump
+@export var max_jumps: int = 2              # Maximum number of allowed jumps
 @export var max_revolutions: int = 100      # Max revolutions needed to keep moving in high gears
 @export var high_rev_threshhold: int = 70
 @export var low_rev_threshold: int = 20     # Minimum revolutions to prevent stalling in high gears
 @export var up_gear_revolution: int = 25
-@export var down_gear_revolution :int = 65
+@export var down_gear_revolution: int = 65
 
-# Gears and counters
+
 var current_gear: String = "N"              # Start in Neutral ("N", "1", "2", "3", "4", "R")
 var revolutions: int = 0                    # Revolution counter
 var speed_multiplier: float = 0.0           # Speed multiplier based on gear
 var speed_revolutions: float = 0.0
+var jump_count: int = 0                     # Tracks the number of jumps performed
+var jump_force: int = base_jump_force
 
-# Direction and parent reference
 var direction: Vector3 = Vector3.ZERO
 @onready var parent_body = get_parent()
 
-# Labels for displaying information
+
 @onready var revolution_label = $"../../GameUI/RevolutionLabel"
 @onready var speed_label = $"../../GameUI/SpeedLabel"
 @onready var gear_label = $"../../GameUI/GearLabel"
-
 
 func _ready():
 	update_labels()
 
 func _physics_process(delta: float) -> void:
-	# Handle turning input
 	var turn_input: float = Input.get_action_strength("turn_left") - Input.get_action_strength("turn_right")
 	rotation.y += turn_input * turn_speed * delta
 
-	# Handle forward/backward motion based on gear
-	if current_gear == "N":  # Neutral gear: no motion
+	if current_gear == "N":  
 		direction.x = 0
 		direction.z = 0
 	var dir_input: float = Input.get_action_strength("move_forward")
-	speed_revolutions = speed_multiplier * revolutions/max_revolutions
+	speed_revolutions = speed_multiplier * revolutions / max_revolutions
+	jump_force = base_jump_force * speed_multiplier
 	if dir_input: 
-		if current_gear == "R":  # Reverse gear
-			var reverse_input = dir_input
-			var reverse_motion: Vector3 = transform.basis.z * reverse_input * base_speed 
+		if current_gear == "R":  
+			var reverse_motion: Vector3 = transform.basis.z * dir_input * base_speed 
 			direction.x = reverse_motion.x 
 			direction.z = reverse_motion.z 
-			if(revolutions < max_revolutions): revolutions += int(reverse_input > 0)
-		else:  # Forward gears
-			var forward_input = dir_input
-			var forward_motion: Vector3 = -transform.basis.z * forward_input * base_speed * speed_revolutions
+			if revolutions < max_revolutions: revolutions += int(dir_input > 0)
+		else: 
+			var forward_motion: Vector3 = -transform.basis.z * dir_input * base_speed * speed_revolutions
 			direction.x = forward_motion.x 
 			direction.z = forward_motion.z 
-			if forward_input > 0:
-				if(revolutions < max_revolutions): revolutions += 1
+			if dir_input > 0 and revolutions < max_revolutions:
+				revolutions += 1
 	else:
-		dir_input = Input.get_action_strength("move_backward")
-		if dir_input:
-			if(revolutions > 0): revolutions -= 2
-		if(revolutions > 0): revolutions -= 1
-	
-	# Gravity logic
-	if not parent_body.is_on_floor():
+		if revolutions > 0:
+			revolutions -= 2
+
+	if !parent_body.is_on_floor():
 		direction.y += gravity * delta
 	else:
 		direction.y = 0
+		jump_count = 0  
 
-	# Apply movement
-	parent_body.velocity = direction * speed_revolutions
+	if Input.is_action_just_pressed("jump") and jump_count < max_jumps:
+		direction.y = jump_force
+		jump_count += 1
+	parent_body.velocity = direction * Vector3(speed_revolutions,1,speed_revolutions)
 	parent_body.move_and_slide()
 
-	# Check for low revolutions and stall motor if needed
-	if revolutions < low_rev_threshold and current_gear != "N" and current_gear != "R" and current_gear != "1":
+	if revolutions < low_rev_threshold and current_gear not in ["N", "R", "1"]:
 		stop_motor()
 
 	update_labels()
@@ -131,5 +129,5 @@ func _input(event: InputEvent) -> void:
 # Update UI labels
 func update_labels() -> void:
 	revolution_label.text = "Revolutions: %d" % revolutions
-	speed_label.text = "Speed: %.2f" %(base_speed * speed_multiplier * speed_revolutions)
+	speed_label.text = "Speed: %.2f" % (base_speed * speed_multiplier * speed_revolutions)
 	gear_label.text = "Gear: %s" % str(current_gear)

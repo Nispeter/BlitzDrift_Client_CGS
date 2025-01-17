@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://la6w1smr8cdw"]
+
+[ext_resource type="Script" path="res://scripts/turret_controller.gd" id="1_g76rs"]
+[ext_resource type="PackedScene" uid="uid://d2mq8nit8isjn" path="res://scenes/cannon.tscn" id="2_0ca4k"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_f8eut"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8xei"]
+albedo_color = Color(0.231373, 0.231373, 0.431373, 1)
+
+[node name="Turret" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.319067, 0)
+script = ExtResource("1_g76rs")
+rotation_speed = 1.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.401513, 0, 0, 0, 0.255422, 0, 0, 0, 0.535049, 0, 0, 0)
+mesh = SubResource("BoxMesh_f8eut")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_h8xei")
+
+[node name="Cannon" parent="." instance=ExtResource("2_0ca4k")]

@@ -23,6 +23,7 @@ gravity_scale = 4.0
 contact_monitor = true
 max_contacts_reported = 1000
 script = ExtResource("1_4t0p7")
+ricochet_angle = 90
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["Projectiles"]]
 transform = Transform3D(0.0166841, 0, 0, 0, -1.18335e-09, -0.0161998, 0, 0.0270718, -7.08116e-10, 0, -2.98023e-08, 0.0623178)

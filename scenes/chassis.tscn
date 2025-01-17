@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://3o8o8vy44jyc"]
+
+[ext_resource type="Script" path="res://scripts/movement_controller.gd" id="1_gd1xj"]
+[ext_resource type="PackedScene" uid="uid://la6w1smr8cdw" path="res://scenes/turret.tscn" id="2_feo0s"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_f8eut"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8xei"]
+albedo_color = Color(0.231373, 0.231373, 0.431373, 1)
+
+[node name="Chassis" type="Node3D"]
+script = ExtResource("1_gd1xj")
+turn_speed = 1.0
+gravity = -9.8
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.754241, 0, 0, 0, 0.449535, 0, 0, 0, 1.01179, 0, 0, 0)
+mesh = SubResource("BoxMesh_f8eut")
+surface_material_override/0 = SubResource("StandardMaterial3D_h8xei")
+
+[node name="Turret" parent="." instance=ExtResource("2_feo0s")]

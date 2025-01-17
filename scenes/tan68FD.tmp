@@ -1,0 +1,126 @@
+[gd_scene load_steps=13 format=3 uid="uid://dbbdp2couyfd7"]
+
+[ext_resource type="Script" path="res://scripts/main_camera.gd" id="1_fiko5"]
+[ext_resource type="Script" path="res://scripts/movement_controller.gd" id="1_v2vwm"]
+[ext_resource type="Script" path="res://scripts/turret_controller.gd" id="2_oetdt"]
+[ext_resource type="Script" path="res://scripts/cannon_controller.gd" id="4_f5cxv"]
+[ext_resource type="Script" path="res://scripts/shoot_manager.gd" id="5_xbxxm"]
+[ext_resource type="PackedScene" uid="uid://bil56lwrmv3t0" path="res://scenes/ammo_prefab.tscn" id="6_frg28"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sm4ti"]
+size = Vector3(0.661133, 0.625977, 0.912109)
+
+[sub_resource type="BoxMesh" id="BoxMesh_f8eut"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8xei"]
+albedo_color = Color(0.231373, 0.231373, 0.431373, 1)
+
+[sub_resource type="Animation" id="Animation_be5oe"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_8pb1j"]
+resource_name = "recoil"
+length = 0.5
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.00105453, -0.271005, -0.436536, 0.0666667, 1, -0.00105453, -0.271005, -0.210372, 0.5, 1, -0.00105453, -0.271005, -0.436536)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D2")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.000869036, -0.271599, -0.818788, 0.0666667, 1, 0.000869036, -0.271599, -0.571448, 0.5, 1, 0.000869036, -0.271599, -0.818788)
+tracks/2/type = "position_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeshInstance3D3")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0, -0.266428, -0.310117, 0.233333, 1, 0, -0.266428, -0.171508, 0.5, 1, 0, -0.266428, -0.310117)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w6h36"]
+_data = {
+"RESET": SubResource("Animation_be5oe"),
+"recoil": SubResource("Animation_8pb1j")
+}
+
+[node name="Tank" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.417561, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10498, 0)
+shape = SubResource("BoxShape3D_sm4ti")
+
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("target_tank")]
+transform = Transform3D(1, 0, 0, 0, 0.946215, 0.323538, 0, -0.323538, 0.946215, 0, 2.85033, 3.6771)
+current = true
+script = ExtResource("1_fiko5")
+follow_distance = -6.0
+follow_height = 3.0
+follow_speed = 2.0
+target_tank = NodePath("../Chassis")
+
+[node name="Chassis" type="Node3D" parent="."]
+script = ExtResource("1_v2vwm")
+turn_speed = 1.0
+gravity = -9.8
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Chassis"]
+transform = Transform3D(0.754241, 0, 0, 0, 0.449535, 0, 0, 0, 1.01179, 0, 0, 0)
+mesh = SubResource("BoxMesh_f8eut")
+surface_material_override/0 = SubResource("StandardMaterial3D_h8xei")
+
+[node name="Turret" type="Node3D" parent="Chassis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.319067, 0)
+script = ExtResource("2_oetdt")
+rotation_speed = 1.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Chassis/Turret"]
+transform = Transform3D(0.401513, 0, 0, 0, 0.255422, 0, 0, 0, 0.535049, 0, 0, 0)
+mesh = SubResource("BoxMesh_f8eut")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_h8xei")
+
+[node name="Cannon" type="Node3D" parent="Chassis/Turret"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.319067, 0)
+script = ExtResource("4_f5cxv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Chassis/Turret/Cannon"]
+libraries = {
+"": SubResource("AnimationLibrary_w6h36")
+}
+
+[node name="ShootManager" type="Node3D" parent="Chassis/Turret/Cannon"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.267528, -0.962894)
+script = ExtResource("5_xbxxm")
+ammo_scene = ExtResource("6_frg28")
+max_ammo = 10
+reload_duration = 1.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Chassis/Turret/Cannon"]
+transform = Transform3D(0.068, 0, 0, 0, 0.068, 0, 0, 0, 0.867, -0.00105453, -0.271005, -0.436536)
+mesh = SubResource("BoxMesh_f8eut")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_h8xei")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Chassis/Turret/Cannon"]
+transform = Transform3D(0.0887975, 0, 0, 0, 0.0923331, 0, 0, 0, 0.263755, 0.000869036, -0.271599, -0.818788)
+mesh = SubResource("BoxMesh_f8eut")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_h8xei")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Chassis/Turret/Cannon"]
+transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.263485, 0, -0.266428, -0.310117)
+mesh = SubResource("BoxMesh_f8eut")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_h8xei")
+
+[node name="RayCast3D" type="RayCast3D" parent="Chassis/Turret/Cannon"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.261057, -1.01159)
+target_position = Vector3(0, 0, -30)
+debug_shape_thickness = 5

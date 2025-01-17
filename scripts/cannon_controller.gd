@@ -22,7 +22,7 @@ func _ready():
 func _process(delta):
 	if raycast.is_colliding():
 		var collider = raycast.get_collider()  
-		if not collider.is_in_group("Projectiles"):
+		if collider != null and !collider.is_in_group("Projectiles"):
 			collision_point = raycast.get_collision_point()
 			distance = collision_point.distance_to(main_cam.global_transform.origin)
 	else:
