@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d2mq8nit8isjn"]
+[gd_scene load_steps=27 format=3 uid="uid://d2mq8nit8isjn"]
 
 [ext_resource type="Script" path="res://scripts/cannon_controller.gd" id="1_hqgk3"]
 [ext_resource type="Script" path="res://scripts/shoot_manager.gd" id="2_24eu5"]
@@ -41,7 +41,98 @@ _data = {
 [sub_resource type="BoxMesh" id="BoxMesh_f8eut"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8xei"]
-albedo_color = Color(0.231373, 0.231373, 0.431373, 1)
+albedo_color = Color(0.146509, 0.146177, 0.289694, 1)
+
+[sub_resource type="Curve" id="Curve_cgwyi"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_u7dnd"]
+curve = SubResource("Curve_cgwyi")
+
+[sub_resource type="Curve" id="Curve_okumf"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8iuit"]
+curve = SubResource("Curve_okumf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sl07v"]
+particle_flag_align_y = true
+direction = Vector3(0, 0, -1)
+spread = 10.0
+initial_velocity_min = 0.2
+initial_velocity_max = 20.0
+gravity = Vector3(0, 1, 0)
+alpha_curve = SubResource("CurveTexture_u7dnd")
+emission_curve = SubResource("CurveTexture_8iuit")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lqyn0"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.92945, 0.395696, 0, 1)
+emission_enabled = true
+emission = Color(0.888392, 0.419836, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_73l8m"]
+material = SubResource("StandardMaterial3D_lqyn0")
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="Curve" id="Curve_i6nrt"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.992754, 0.032967), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_s6x8q"]
+curve = SubResource("Curve_i6nrt")
+
+[sub_resource type="Curve" id="Curve_wuato"]
+
+[sub_resource type="CurveTexture" id="CurveTexture_k0qr7"]
+curve = SubResource("Curve_wuato")
+
+[sub_resource type="Curve" id="Curve_gbyoj"]
+_data = [Vector2(0.130435, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qeqgb"]
+curve = SubResource("Curve_gbyoj")
+
+[sub_resource type="Curve" id="Curve_yf6ie"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 0), 0.0, 0.0, 0, 0, Vector2(2e-05, 0.10989), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_tn1fy"]
+curve = SubResource("Curve_yf6ie")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lm6nu"]
+lifetime_randomness = 1.0
+particle_flag_align_y = true
+emission_shape_scale = Vector3(1, 0, 1)
+angle_min = 1.07288e-05
+angle_max = 180.0
+angle_curve = SubResource("CurveTexture_k0qr7")
+velocity_pivot = Vector3(0, 0.05, 1)
+direction = Vector3(0, 0, -1)
+spread = 180.0
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+radial_velocity_min = 2.99998
+radial_velocity_max = 5.99998
+radial_velocity_curve = SubResource("CurveTexture_qeqgb")
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_max = 0.4
+scale_curve = SubResource("CurveTexture_tn1fy")
+color = Color(0.313928, 0.287318, 0.262416, 1)
+alpha_curve = SubResource("CurveTexture_s6x8q")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_285hp"]
+transparency = 1
+vertex_color_use_as_albedo = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_02yeu"]
+material = SubResource("StandardMaterial3D_285hp")
+size = Vector3(2, 2, 2)
 
 [node name="Cannon" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.319067, 0)
@@ -81,3 +172,24 @@ surface_material_override/0 = SubResource("StandardMaterial3D_h8xei")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.261057, -1.01159)
 target_position = Vector3(0, 0, -30)
 debug_shape_thickness = 5
+
+[node name="ShootFire" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.266273, -0.95747)
+emitting = false
+amount = 60
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_sl07v")
+draw_pass_1 = SubResource("BoxMesh_73l8m")
+
+[node name="ShootSmoke" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.232545, -0.914939)
+emitting = false
+amount = 40
+one_shot = true
+explosiveness = 1.0
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_lm6nu")
+draw_pass_1 = SubResource("BoxMesh_02yeu")

@@ -1,58 +1,44 @@
-[gd_scene load_steps=14 format=3 uid="uid://3o8o8vy44jyc"]
+[gd_scene load_steps=12 format=3 uid="uid://3o8o8vy44jyc"]
 
 [ext_resource type="Script" path="res://scripts/movement_controller.gd" id="1_gd1xj"]
 [ext_resource type="PackedScene" uid="uid://la6w1smr8cdw" path="res://scenes/turret.tscn" id="2_feo0s"]
-
-[sub_resource type="Curve" id="Curve_sj2x0"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_ye4w8"]
-curve = SubResource("Curve_sj2x0")
 
 [sub_resource type="Curve" id="Curve_nrpwp"]
 _data = [Vector2(0.130435, 1), 0.0, 0.0, 0, 0, Vector2(0.73913, 0.318681), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_tdjqm"]
+[sub_resource type="CurveTexture" id="CurveTexture_qeqgb"]
 curve = SubResource("Curve_nrpwp")
 
 [sub_resource type="Curve" id="Curve_kutg4"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.538462), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_xgyrb"]
+[sub_resource type="CurveTexture" id="CurveTexture_0ilse"]
 curve = SubResource("Curve_kutg4")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_b71bb"]
 lifetime_randomness = 0.3
-particle_flag_align_y = true
-emission_shape_scale = Vector3(1, 0, 1)
 emission_shape = 6
 emission_ring_axis = Vector3(0, 1, 0)
 emission_ring_height = 0.2
 emission_ring_radius = 0.6
 emission_ring_inner_radius = 0.0
-angle_min = 1.07288e-05
-angle_max = 200.0
 radial_velocity_min = 1.99998
 radial_velocity_max = 5.99998
-radial_velocity_curve = SubResource("CurveTexture_tdjqm")
+radial_velocity_curve = SubResource("CurveTexture_qeqgb")
 gravity = Vector3(0, 0, 0)
 linear_accel_min = 0.999998
 linear_accel_max = 4.0
 scale_min = 0.05
 scale_max = 0.4
-scale_curve = SubResource("CurveTexture_xgyrb")
-alpha_curve = SubResource("CurveTexture_ye4w8")
+scale_curve = SubResource("CurveTexture_0ilse")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d12kc"]
-transparency = 1
-vertex_color_use_as_albedo = true
-albedo_color = Color(0.262933, 0.262932, 0.262932, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5c2fh"]
+albedo_color = Color(0.230315, 0.230315, 0.230315, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_43yhi"]
-material = SubResource("StandardMaterial3D_d12kc")
+material = SubResource("StandardMaterial3D_5c2fh")
 
 [sub_resource type="BoxMesh" id="BoxMesh_f8eut"]
 
@@ -65,13 +51,12 @@ turn_speed = 1.0
 gravity = -9.8
 
 [node name="DustLand" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.268852, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.266273, 0)
 emitting = false
 amount = 40
 lifetime = 0.6
 one_shot = true
 explosiveness = 1.0
-local_coords = true
 process_material = SubResource("ParticleProcessMaterial_b71bb")
 draw_pass_1 = SubResource("BoxMesh_43yhi")
 

@@ -5,6 +5,7 @@ extends Node3D
 @export var gravity: float = -1             # Simulated gravity
 @export var base_jump_force: float = 6      # Force applied for a jump
 @export var max_jumps: int = 2              # Maximum number of allowed jumps
+@export var jump_tied_to_gear: bool = false
 @export var max_revolutions: int = 100      # Max revolutions needed to keep moving in high gears
 @export var high_rev_threshhold: int = 70
 @export var low_rev_threshold: int = 20     # Minimum revolutions to prevent stalling in high gears
@@ -18,11 +19,12 @@ var speed_multiplier: float = 0.0           # Speed multiplier based on gear
 var speed_revolutions: float = 0.0
 var jump_count: int = 0                     # Tracks the number of jumps performed
 var jump_force: int = base_jump_force
-
 var direction: Vector3 = Vector3.ZERO
+
 @onready var parent_body = get_parent()
+@onready var was_airborne: bool = parent_body.is_on_floor()
 
-
+@onready var particle_effect = $DustLand
 @onready var revolution_label = $"../../GameUI/RevolutionLabel"
 @onready var speed_label = $"../../GameUI/SpeedLabel"
 @onready var gear_label = $"../../GameUI/GearLabel"
@@ -39,7 +41,7 @@ func _physics_process(delta: float) -> void:
 		direction.z = 0
 	var dir_input: float = Input.get_action_strength("move_forward")
 	speed_revolutions = speed_multiplier * revolutions / max_revolutions
-	jump_force = base_jump_force * speed_multiplier
+	
 	if dir_input: 
 		if current_gear == "R":  
 			var reverse_motion: Vector3 = transform.basis.z * dir_input * base_speed 
@@ -55,23 +57,38 @@ func _physics_process(delta: float) -> void:
 	else:
 		if revolutions > 0:
 			revolutions -= 2
+			
+	_handle_jump(delta)
 
-	if !parent_body.is_on_floor():
-		direction.y += gravity * delta
-	else:
-		direction.y = 0
-		jump_count = 0  
-
-	if Input.is_action_just_pressed("jump") and jump_count < max_jumps:
-		direction.y = jump_force
-		jump_count += 1
 	parent_body.velocity = direction * Vector3(speed_revolutions,1,speed_revolutions)
 	parent_body.move_and_slide()
 
 	if revolutions < low_rev_threshold and current_gear not in ["N", "R", "1"]:
 		stop_motor()
-
 	update_labels()
+
+func _handle_jump(delta: float):
+	if(jump_tied_to_gear): jump_force = base_jump_force * speed_multiplier
+	else: jump_force = base_jump_force
+	
+	if !parent_body.is_on_floor():
+		direction.y += gravity * delta
+		if !was_airborne: was_airborne = true
+		
+	else:
+		if was_airborne: 
+			particle_effect.restart()
+			particle_effect.emitting = true 
+			was_airborne = false
+		direction.y = 0
+		jump_count = 0  
+		
+	if Input.is_action_just_pressed("jump") and jump_count < max_jumps:
+		direction.y = jump_force
+		jump_count += 1
+		if !parent_body.is_on_floor():
+			particle_effect.restart()
+			particle_effect.emitting = true 
 
 # Shift gear up
 func shift_gear_up():

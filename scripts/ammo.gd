@@ -7,7 +7,6 @@ class_name Ammo
 @export var max_bounces: int = 2
 var current_bounces:int = 0
 
-
 var shooter: Node3D = null
 var lifetime_timer: Timer
 

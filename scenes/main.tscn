@@ -97,15 +97,6 @@ transform = Transform3D(371.794, 0, 0, 0, 0.0966688, 0, 0, 0, 371.794, -1.98614,
 mesh = SubResource("BoxMesh_e6atq")
 skeleton = NodePath("../..")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="Map/Floor"]
-transform = Transform3D(0.968291, -0.231436, 0, 0.222266, 1.00824, 0, 0, 0, 0.993474, 58.6223, 0, 0)
-shape = SubResource("BoxShape3D_6agdm")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/Floor/CollisionShape3D3"]
-transform = Transform3D(100.657, 0, 0, 0, 0.0966688, 0, 0, 0, 100.657, 0, 0, 0)
-mesh = SubResource("BoxMesh_e6atq")
-skeleton = NodePath("../..")
-
 [node name="slope" type="CollisionShape3D" parent="Map/Floor"]
 transform = Transform3D(6.22893, 0.464888, 0, -3.27068, 0.885369, 0, 0, 0, 3.92459, -10.0322, 0.572448, 1.82961)
 shape = SubResource("BoxShape3D_rdu4b")

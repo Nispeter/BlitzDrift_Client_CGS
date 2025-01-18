@@ -23,4 +23,5 @@ follow_speed = 2.0
 target_tank = NodePath("../Chassis")
 
 [node name="Chassis" parent="." instance=ExtResource("2_ppsrf")]
-gravity = -20.0
+gravity = -100.0
+base_jump_force = 20.0

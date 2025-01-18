@@ -10,6 +10,9 @@ extends Node3D
 @onready var ammo_label = $"../../../../../GameUI/AmmoLabel"
 @onready var reload_indicator = $"../../../../../GameUI/Crosshair/CrosshairOuter/Reloadbar"
 
+@onready var shoot_particles: GPUParticles3D = $"../ShootFire"
+@onready var smoke_particles: GPUParticles3D = $"../ShootSmoke"
+
 var current_ammo: int = max_ammo
 var cannon: Node3D  
 var animation_player: AnimationPlayer
@@ -49,6 +52,12 @@ func shoot():
 	_update_ammo_label()
 	
 	#Animations and stuff
+	
+	shoot_particles.restart()
+	shoot_particles.emitting = true 
+	smoke_particles.restart()
+	smoke_particles.emitting = true 
+	
 	if animation_player.has_animation(recoil_animation):
 		animation_player.play(recoil_animation) 
 	await(get_tree().create_timer(fire_interval).timeout)
