@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/cannon_controller.gd" id="1_hqgk3"]
 [ext_resource type="Script" path="res://scripts/shoot_manager.gd" id="2_24eu5"]
-[ext_resource type="PackedScene" uid="uid://bil56lwrmv3t0" path="res://scenes/ammo_prefab.tscn" id="3_i4enj"]
+[ext_resource type="PackedScene" uid="uid://bil56lwrmv3t0" path="res://prefabs/ammo_prefab.tscn" id="3_i4enj"]
 
 [sub_resource type="Animation" id="Animation_be5oe"]
 length = 0.001

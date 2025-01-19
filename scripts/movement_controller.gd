@@ -59,9 +59,16 @@ func _physics_process(delta: float) -> void:
 			revolutions -= 2
 			
 	_handle_jump(delta)
-
+	
 	parent_body.velocity = direction * Vector3(speed_revolutions,1,speed_revolutions)
 	parent_body.move_and_slide()
+	
+	if $RayCast3D.is_colliding():
+		var collider = $RayCast3D.get_collider()  
+		if collider != null and !collider.is_in_group("Projectiles"):
+			var n = $RayCast3D.get_collision_normal()
+			var xform = align_with_y(parent_body.global_transform, n)
+			parent_body.global_transform = parent_body.global_transform.interpolate_with(xform, 12 * delta)
 
 	if revolutions < low_rev_threshold and current_gear not in ["N", "R", "1"]:
 		stop_motor()
@@ -133,6 +140,13 @@ func stop_motor():
 	current_gear = "N"
 	speed_multiplier = 0.0
 	revolutions = 0
+	
+func align_with_y(xform, new_y):
+	print(parent_body.is_on_floor(), was_airborne)
+	xform.basis.y = new_y
+	xform.basis.x = -xform.basis.z.cross(new_y)
+	xform.basis = xform.basis.orthonormalized()
+	return xform
 
 # Handle input for gear shifting
 func _input(event: InputEvent) -> void:

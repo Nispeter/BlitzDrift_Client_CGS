@@ -27,11 +27,13 @@ func _on_collision(body: Node) -> void:
 		var collision_normal: Vector3 = (global_transform.origin - body.global_transform.origin).normalized()
 		var ammo_velocity: Vector3 = linear_velocity.normalized()
 		var collision_angle: float = rad_to_deg(acos(ammo_velocity.dot(collision_normal)))
-		if collision_angle <= 15 and can_ricochet and current_bounces < max_bounces:
-			ricochet(collision_normal)
-		else:
-			on_hit(body)
-			queue_free()
+		#if collision_angle <= 15 and can_ricochet and current_bounces < max_bounces:
+			#ricochet(collision_normal)
+		#else:
+			#on_hit(body)
+			#queue_free()
+		on_hit(body)
+		queue_free()
 
 #FIXME: this shit is cursed yo (needs more math)
 func ricochet(normal: Vector3) -> void:
