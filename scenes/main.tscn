@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://co4be7xvnkgcq"]
+[gd_scene load_steps=14 format=3 uid="uid://co4be7xvnkgcq"]
 
-[ext_resource type="PackedScene" uid="uid://dbbdp2couyfd7" path="res://scenes/tank_prefab.tscn" id="1_0k8ud"]
-[ext_resource type="PackedScene" uid="uid://b2got3actbsyc" path="res://scenes/game_ui.tscn" id="2_jix3s"]
+[ext_resource type="PackedScene" uid="uid://dbbdp2couyfd7" path="res://prefabs/tank_prefab.tscn" id="1_0k8ud"]
+[ext_resource type="Script" path="res://scripts/speed_boost.gd" id="3_psts8"]
+[ext_resource type="PackedScene" uid="uid://c0ox864tdbhln" path="res://scenes/screen_manager.tscn" id="3_wyxi8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6agdm"]
 size = Vector3(359.494, 0.001, 376.911)
@@ -33,12 +34,15 @@ glow_intensity = 0.1
 glow_bloom = 0.1
 glow_blend_mode = 1
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_or57h"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_a8vrh"]
+
 [node name="Main" type="Node3D"]
 
 [node name="Tank" parent="." instance=ExtResource("1_0k8ud")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0419, 0)
 
-[node name="GameUI" parent="." instance=ExtResource("2_jix3s")]
+[node name="ScreenManager" parent="." instance=ExtResource("3_wyxi8")]
 
 [node name="Map" type="Node3D" parent="."]
 
@@ -192,3 +196,13 @@ light_energy = 10.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Env"]
 environment = SubResource("Environment_rfyph")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.21506, 0, 0)
+script = ExtResource("3_psts8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_or57h")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+mesh = SubResource("SphereMesh_a8vrh")

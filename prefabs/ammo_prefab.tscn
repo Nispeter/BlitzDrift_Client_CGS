@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bil56lwrmv3t0"]
 
-[ext_resource type="Script" path="res://scripts/ammo.gd" id="1_4t0p7"]
+[ext_resource type="Script" path="res://scripts/ammo.gd" id="1_xqi8b"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v7x47"]
 radius = 3.68239
@@ -22,7 +22,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.23059)
 gravity_scale = 4.0
 contact_monitor = true
 max_contacts_reported = 1000
-script = ExtResource("1_4t0p7")
+script = ExtResource("1_xqi8b")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["Projectiles"]]
 transform = Transform3D(0.0166841, 0, 0, 0, -1.18335e-09, -0.0161998, 0, 0.0270718, -7.08116e-10, 0, -2.98023e-08, 0.0623178)

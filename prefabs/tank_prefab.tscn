@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dbbdp2couyfd7"]
 
 [ext_resource type="Script" path="res://scripts/main_camera.gd" id="1_fiko5"]
-[ext_resource type="PackedScene" uid="uid://3o8o8vy44jyc" path="res://scenes/chassis.tscn" id="2_ppsrf"]
+[ext_resource type="PackedScene" uid="uid://3o8o8vy44jyc" path="res://prefabs/chassis.tscn" id="2_ppsrf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sm4ti"]
 size = Vector3(0.661133, 0.682617, 0.912109)
