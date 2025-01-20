@@ -7,8 +7,8 @@ extends Node3D
 @export var recoil_animation: String = "recoil"
 @export var fire_interval: float = 1
 
-@onready var ammo_label = $"../../../../../GameUI/AmmoLabel"
-@onready var reload_indicator = $"../../../../../GameUI/Crosshair/CrosshairOuter/Reloadbar"
+@onready var ammo_label = $"../../../../../ScreenManager/GameUI/AmmoLabel"
+@onready var reload_indicator = $"../../../../../ScreenManager/GameUI/Crosshair/CrosshairOuter/Reloadbar"
 
 @onready var shoot_particles: GPUParticles3D = $"../ShootFire"
 @onready var smoke_particles: GPUParticles3D = $"../ShootSmoke"

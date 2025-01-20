@@ -1,0 +1,120 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0ox864tdbhln"]
+
+[ext_resource type="Script" path="res://scripts/UI/screen_manager.gd" id="1_fhsu5"]
+[ext_resource type="PackedScene" uid="uid://b2got3actbsyc" path="res://scenes/game_ui.tscn" id="2_3w2sf"]
+[ext_resource type="Script" path="res://scripts/UI/pause_screen.gd" id="2_33gc6"]
+
+[node name="ScreenManager" type="CanvasLayer"]
+script = ExtResource("1_fhsu5")
+
+[node name="GameUI" parent="." instance=ExtResource("2_3w2sf")]
+
+[node name="PauseScreen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_33gc6")
+pauses_time = true
+opens_on_top = true
+
+[node name="ColorRect" type="ColorRect" parent="PauseScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.392157)
+
+[node name="Label" type="Label" parent="PauseScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -261.0
+offset_top = -219.0
+offset_right = 1137.0
+offset_bottom = 54.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.370205, 0.370205)
+theme_override_font_sizes/font_size = 200
+text = "GAME PAUSED"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = -31.5
+offset_right = 96.0
+offset_bottom = 31.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="PauseScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "RESUME"
+
+[node name="Button2" type="Button" parent="PauseScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "SETTINGS"
+
+[node name="SettingsScreen" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_33gc6")
+pauses_time = true
+opens_on_top = true
+
+[node name="ColorRect" type="ColorRect" parent="SettingsScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.117647)
+
+[node name="Label" type="Label" parent="SettingsScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -334.0
+offset_top = -296.0
+offset_right = 334.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 200
+text = "FLESH and"
+
+[node name="Button" type="Button" parent="SettingsScreen"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 500.0
+offset_right = 254.0
+offset_bottom = 642.0
+text = "BACK!"
+
+[connection signal="pressed" from="PauseScreen/VBoxContainer/Button" to="." method="back"]
+[connection signal="pressed" from="PauseScreen/VBoxContainer/Button2" to="." method="toggleSettings"]
+[connection signal="pressed" from="SettingsScreen/Button" to="." method="toggleSettings"]

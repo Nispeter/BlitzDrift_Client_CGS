@@ -24,9 +24,9 @@ var direction: Vector3 = Vector3.ZERO
 @onready var raycast = $RayCast3D          # RayCast3D for floor detection
 
 @onready var particle_effect = $DustLand
-@onready var revolution_label = $"../../GameUI/RevolutionLabel"
-@onready var speed_label = $"../../GameUI/SpeedLabel"
-@onready var gear_label = $"../../GameUI/GearLabel"
+@onready var revolution_label = $"../../ScreenManager/GameUI/RevolutionLabel"
+@onready var speed_label = $"../../ScreenManager/GameUI/SpeedLabel"
+@onready var gear_label = $"../../ScreenManager/GameUI/GearLabel"
 
 func _ready():
 	raycast.enabled = true 

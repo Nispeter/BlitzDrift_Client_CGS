@@ -1,8 +1,8 @@
 [gd_scene load_steps=27 format=3 uid="uid://d2mq8nit8isjn"]
 
-[ext_resource type="Script" path="res://scripts/cannon_controller.gd" id="1_hqgk3"]
-[ext_resource type="Script" path="res://scripts/shoot_manager.gd" id="2_24eu5"]
-[ext_resource type="PackedScene" uid="uid://bil56lwrmv3t0" path="res://prefabs/ammo_prefab.tscn" id="3_i4enj"]
+[ext_resource type="Script" path="res://scripts/cannon_controller.gd" id="1_kxmyh"]
+[ext_resource type="Script" path="res://scripts/shoot_manager.gd" id="2_utfl5"]
+[ext_resource type="PackedScene" uid="uid://bil56lwrmv3t0" path="res://prefabs/ammo_prefab.tscn" id="3_ydamp"]
 
 [sub_resource type="Animation" id="Animation_be5oe"]
 length = 0.001
@@ -136,7 +136,7 @@ size = Vector3(2, 2, 2)
 
 [node name="Cannon" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.319067, 0)
-script = ExtResource("1_hqgk3")
+script = ExtResource("1_kxmyh")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -145,8 +145,8 @@ libraries = {
 
 [node name="ShootManager" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.267528, -0.962894)
-script = ExtResource("2_24eu5")
-ammo_scene = ExtResource("3_i4enj")
+script = ExtResource("2_utfl5")
+ammo_scene = ExtResource("3_ydamp")
 max_ammo = 10
 reload_duration = 1.0
 

@@ -26,7 +26,7 @@ func _process(delta: float) -> void:
 	if rotating_camera:
 		var rotation_basis: Basis = Basis(Vector3.UP, current_yaw) * Basis(Vector3.RIGHT, current_pitch)
 		desired_position = target_tank.global_transform.origin \
-						   + rotation_basis.z * -follow_distance \
+						   + rotation_basis.z * follow_distance \
 						   + Vector3.UP * follow_height
 	else:
 		current_yaw = target_tank.rotation.y
@@ -41,8 +41,8 @@ func _process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and rotating_camera:
-		current_yaw -= event.relative.x * rotation_speed
-		current_pitch += -event.relative.y * rotation_speed*0.5
+		current_yaw -= event.relative.x * rotation_speed*0.5
+		current_pitch += event.relative.y * rotation_speed*0.5
 		current_pitch = clamp(current_pitch, deg_to_rad(min_pitch), deg_to_rad(max_pitch))
 
 	if event is InputEventMouseButton:

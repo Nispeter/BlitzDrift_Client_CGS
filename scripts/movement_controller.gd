@@ -12,6 +12,12 @@ extends Node3D
 @export var up_gear_revolution: int = 25
 @export var down_gear_revolution: int = 65
 
+@onready var raycasts = [
+	$RayCast3D_TopLeft,
+	$RayCast3D_TopRight,
+	$RayCast3D_BottomLeft,
+	$RayCast3D_BottomRight
+]	
 
 var current_gear: String = "N"              # Start in Neutral ("N", "1", "2", "3", "4", "R")
 var revolutions: int = 0                    # Revolution counter
@@ -25,9 +31,9 @@ var direction: Vector3 = Vector3.ZERO
 @onready var was_airborne: bool = parent_body.is_on_floor()
 
 @onready var particle_effect = $DustLand
-@onready var revolution_label = $"../../GameUI/RevolutionLabel"
-@onready var speed_label = $"../../GameUI/SpeedLabel"
-@onready var gear_label = $"../../GameUI/GearLabel"
+@onready var revolution_label = $"../../ScreenManager/GameUI/RevolutionLabel"
+@onready var speed_label = $"../../ScreenManager/GameUI/SpeedLabel"
+@onready var gear_label = $"../../ScreenManager/GameUI/GearLabel"
 
 func _ready():
 	update_labels()
@@ -44,12 +50,12 @@ func _physics_process(delta: float) -> void:
 	
 	if dir_input: 
 		if current_gear == "R":  
-			var reverse_motion: Vector3 = transform.basis.z * dir_input * base_speed 
+			var reverse_motion: Vector3 = -transform.basis.z * dir_input * base_speed 
 			direction.x = reverse_motion.x 
 			direction.z = reverse_motion.z 
 			if revolutions < max_revolutions: revolutions += int(dir_input > 0)
 		else: 
-			var forward_motion: Vector3 = -transform.basis.z * dir_input * base_speed * speed_revolutions
+			var forward_motion: Vector3 = transform.basis.z * dir_input * base_speed * speed_revolutions
 			direction.x = forward_motion.x 
 			direction.z = forward_motion.z 
 			if dir_input > 0 and revolutions < max_revolutions:
@@ -63,12 +69,7 @@ func _physics_process(delta: float) -> void:
 	parent_body.velocity = direction * Vector3(speed_revolutions,1,speed_revolutions)
 	parent_body.move_and_slide()
 	
-	if $RayCast3D.is_colliding():
-		var collider = $RayCast3D.get_collider()  
-		if collider != null and !collider.is_in_group("Projectiles"):
-			var n = $RayCast3D.get_collision_normal()
-			var xform = align_with_y(parent_body.global_transform, n)
-			parent_body.global_transform = parent_body.global_transform.interpolate_with(xform, 12 * delta)
+	align_to_floor(delta)
 
 	if revolutions < low_rev_threshold and current_gear not in ["N", "R", "1"]:
 		stop_motor()
@@ -104,29 +105,29 @@ func shift_gear_up():
 		speed_multiplier = 0.0
 	elif current_gear == "N":
 		current_gear = "1"
-		speed_multiplier = 0.5
+		speed_multiplier = 0.4
 	elif current_gear == "1":
 		current_gear = "2"
-		speed_multiplier = 1.0
+		speed_multiplier = 0.8
 	elif current_gear == "2":
 		current_gear = "3"
-		speed_multiplier = 1.5
+		speed_multiplier = 1.2
 	elif current_gear == "3":
 		current_gear = "4"
-		speed_multiplier = 2.0
+		speed_multiplier = 1.6
 	revolutions = up_gear_revolution
 	
 # Shift gear down
 func shift_gear_down():
 	if current_gear == "4":
 		current_gear = "3"
-		speed_multiplier = 1.5
+		speed_multiplier = 1.2
 	elif current_gear == "3":
 		current_gear = "2"
-		speed_multiplier = 1.0
+		speed_multiplier = 0.8
 	elif current_gear == "2":
 		current_gear = "1"
-		speed_multiplier = 0.5
+		speed_multiplier = 0.4
 	elif current_gear == "1":
 		current_gear = "N"
 		speed_multiplier = 0.0
@@ -141,12 +142,27 @@ func stop_motor():
 	speed_multiplier = 0.0
 	revolutions = 0
 	
-func align_with_y(xform, new_y):
-	print(parent_body.is_on_floor(), was_airborne)
-	xform.basis.y = new_y
-	xform.basis.x = -xform.basis.z.cross(new_y)
-	xform.basis = xform.basis.orthonormalized()
-	return xform
+func align_to_floor(delta: float) -> void:
+	var total_normal = Vector3.ZERO
+	var hit_count = 0
+
+	for raycast in raycasts:
+		if raycast.is_colliding():
+			total_normal += raycast.get_collision_normal()
+			hit_count += 1
+
+	if hit_count > 0:
+		var average_normal = total_normal / hit_count
+		var target_transform = align_with_y(parent_body.global_transform, average_normal)
+		parent_body.global_transform = parent_body.global_transform.interpolate_with(target_transform, 12 * delta)
+
+func align_with_y(transform: Transform3D, normal: Vector3) -> Transform3D:
+	var basis = Basis()
+	basis.y = normal.normalized()
+	basis.x = basis.y.cross(Vector3.FORWARD).normalized()
+	basis.z = basis.x.cross(basis.y).normalized()
+	transform.basis = basis
+	return transform
 
 # Handle input for gear shifting
 func _input(event: InputEvent) -> void:
@@ -162,3 +178,8 @@ func update_labels() -> void:
 	revolution_label.text = "Revolutions: %d" % revolutions
 	speed_label.text = "Speed: %.2f" % (base_speed * speed_multiplier * speed_revolutions)
 	gear_label.text = "Gear: %s" % str(current_gear)
+	
+func apply_speed_boost(amount: float) -> void:
+	base_speed += amount
+	if base_speed < 0:  
+		base_speed = 0
