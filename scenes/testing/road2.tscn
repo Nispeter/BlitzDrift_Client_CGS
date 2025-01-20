@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://c5guohn3wbbwm"]
+
+[ext_resource type="Texture2D" uid="uid://cxn7lwalluanu" path="res://assets/textures/GroundDirt03_1K_BaseColor.png" id="1_3ljxb"]
+[ext_resource type="Texture2D" uid="uid://bo7xlewb8fvws" path="res://assets/textures/GroundDirt03_1K_Normal.png" id="2_bb5ag"]
+[ext_resource type="PackedScene" uid="uid://dbbdp2couyfd7" path="res://scenes/tank_prefab.tscn" id="3_igaxw"]
+[ext_resource type="PackedScene" uid="uid://b2got3actbsyc" path="res://scenes/game_ui.tscn" id="4_bwkgg"]
+
+[sub_resource type="Curve3D" id="Curve3D_ich35"]
+_data = {
+"points": PackedVector3Array(6.82747, 0.590927, -0.773712, -6.82747, -0.590927, 0.773712, 63.2182, -0.357056, 1.95303, 4.75341, -1.7793, 2.0768, -4.75341, 1.7793, -2.0768, 51.6629, -0.616699, -8.69337, 7.64966, -0.373596, 0.687073, -7.64966, 0.373596, -0.687073, 22.9354, 2.19568, -11.9543, 4.47305, 1.27686, -5.09885, -4.47305, -1.27686, 5.09885, 15.747, -0.811401, 3.32236, 0, 0, 0, 0, 0, 0, 0.0781565, -0.331543, 1.30188, -1.53168, -0.933594, 4.45145, 1.53168, 0.933594, -4.45145, -0.302002, 3.62512, -15.1948, -10.9948, -0.713356, 0.458221, 10.9948, 0.713356, -0.458221, 15.1817, 5.71313, -22.2891, -3.28122, 2.30524, -2.59888, 3.28122, -2.30524, 2.59888, 67.5179, 6.20007, -23.7433, 1.68687, 0.72229, -3.5528, -1.68687, -0.72229, 3.5528, 74.3306, 1.68799, -5.97589, 6.82747, 0.590927, -0.773712, -6.82747, -0.590927, 0.773712, 63.2182, -0.357056, 1.95303),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 10
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_em4t6"]
+albedo_texture = ExtResource("1_3ljxb")
+normal_texture = ExtResource("2_bb5ag")
+uv1_triplanar = true
+
+[node name="Road3" type="Node3D"]
+
+[node name="Road" type="Node3D" parent="."]
+
+[node name="Path3D" type="Path3D" parent="Road"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.461426, -0.606018, 1.62122)
+curve = SubResource("Curve3D_ich35")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="Road"]
+use_collision = true
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Road/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0112305, 0.0601196, -0.0152588)
+polygon = PackedVector2Array(-3, 0, -3, 0.3, 3, 0.3, 3, 0)
+mode = 2
+path_node = NodePath("../../Path3D")
+path_interval_type = 0
+path_interval = 0.1
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = true
+material = SubResource("StandardMaterial3D_em4t6")
+
+[node name="Tanks" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.522339, 0)
+
+[node name="Tank" parent="Tanks" instance=ExtResource("3_igaxw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.27581, 0)
+
+[node name="GameUI" parent="Tanks" instance=ExtResource("4_bwkgg")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23.0117, 0)
+light_energy = 4.232
