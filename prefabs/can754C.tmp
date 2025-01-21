@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://d2mq8nit8isjn"]
+[gd_scene load_steps=31 format=3 uid="uid://d2mq8nit8isjn"]
 
 [ext_resource type="Script" path="res://scripts/cannon_controller.gd" id="1_kxmyh"]
 [ext_resource type="Script" path="res://scripts/shoot_manager.gd" id="2_utfl5"]
@@ -42,24 +42,19 @@ _data = {
 
 [sub_resource type="Resource" id="Resource_fojre"]
 script = ExtResource("5_rwpl7")
-ammo_name = "Normal"
 ammo_scene = ExtResource("3_ydamp")
 mag_size = 2
 max_ammo = 4
+current_ammo = 0
+current_mag = 0
 
 [sub_resource type="Resource" id="Resource_mlppp"]
 script = ExtResource("5_rwpl7")
-ammo_name = "Explosive"
 ammo_scene = ExtResource("3_ydamp")
 mag_size = 1
 max_ammo = 2
-
-[sub_resource type="Resource" id="Resource_e8yd0"]
-script = ExtResource("5_rwpl7")
-ammo_name = "Armor piercing"
-ammo_scene = ExtResource("3_ydamp")
-mag_size = 1
-max_ammo = 1
+current_ammo = 0
+current_mag = 0
 
 [sub_resource type="BoxMesh" id="BoxMesh_f8eut"]
 
@@ -172,7 +167,7 @@ script = ExtResource("2_utfl5")
 
 [node name="AmmoManager" type="Node" parent="."]
 script = ExtResource("4_krlh4")
-ammo_catalogue = Array[ExtResource("5_rwpl7")]([SubResource("Resource_fojre"), SubResource("Resource_mlppp"), SubResource("Resource_e8yd0")])
+ammo_catalogue = Array[ExtResource("5_rwpl7")]([SubResource("Resource_fojre"), SubResource("Resource_mlppp")])
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.068, 0, 0, 0, 0.068, 0, 0, 0, 0.867, -0.00105453, -0.271005, -0.436536)

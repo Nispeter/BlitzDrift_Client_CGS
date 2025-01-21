@@ -2,10 +2,13 @@ extends RigidBody3D
 class_name Ammo
 
 @export var lifetime: float = 5.0 
-@export var can_ricochet: bool = true
-@export var ricochet_angle: int = 15
-@export var max_bounces: int = 2
-var current_bounces:int = 0
+@export var mag_size: int = 1
+@export var total_ammo: int
+
+#@export var can_ricochet: bool = true
+#@export var ricochet_angle: int = 15
+#@export var max_bounces: int = 2
+#var current_bounces:int = 0
 
 var shooter: Node3D = null
 var lifetime_timer: Timer
@@ -34,7 +37,15 @@ func _on_collision(body: Node) -> void:
 			#queue_free()
 		on_hit(body)
 		queue_free()
+	
+func on_hit(body: Node) -> void:
+	print("Bullet hit: ", body.name)
 
+func _on_area_entered(area: Area3D) -> void:
+	if area != shooter:
+		on_hit(area)
+		
+		
 #FIXME: this shit is cursed yo (needs more math)
 #func ricochet(normal: Vector3) -> void:
 	#var reflected_velocity: Vector3 = - linear_velocity + 2 * linear_velocity.dot(normal) * normal
@@ -44,10 +55,8 @@ func _on_collision(body: Node) -> void:
 	#linear_velocity = reflected_velocity * 0.8
 	##print("ric " + str(linear_velocity))
 	
-func on_hit(body: Node) -> void:
-	print("Bullet hit: ", body.name)
-
-func _on_area_entered(area: Area3D) -> void:
-	if area != shooter:
-		on_hit(area)
-		
+'''
+La idea era hacer un ricochet que siguiera la direccion del movimiento, sin utilizar bounce (por que es muy poco realista), 
+pero los rigidBody3D no soportan obtener la normal de la superficie de colision fuera de _physics_process, pero desde ahi no se 
+pueden modificar los parametros propios 
+'''

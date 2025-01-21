@@ -31,11 +31,18 @@ offset_bottom = 571.0
 text = "REVS"
 
 [node name="AmmoLabel" type="Label" parent="."]
-offset_left = 1041.0
-offset_top = 572.0
-offset_right = 1094.0
-offset_bottom = 595.0
+visible = false
+offset_left = 782.0
+offset_top = 514.0
+offset_right = 835.0
+offset_bottom = 537.0
 text = "AMMO"
+
+[node name="AmmoSection" type="VBoxContainer" parent="."]
+offset_left = 782.0
+offset_top = 514.0
+offset_right = 835.0
+offset_bottom = 554.0
 
 [node name="Crosshair" type="Node2D" parent="."]
 
