@@ -1,10 +1,11 @@
-[gd_scene load_steps=33 format=3 uid="uid://d2mq8nit8isjn"]
+[gd_scene load_steps=35 format=3 uid="uid://d2mq8nit8isjn"]
 
 [ext_resource type="Script" path="res://scripts/cannon_controller.gd" id="1_kxmyh"]
 [ext_resource type="Script" path="res://scripts/shoot_manager.gd" id="2_utfl5"]
 [ext_resource type="PackedScene" uid="uid://bil56lwrmv3t0" path="res://prefabs/ammo_prefab.tscn" id="3_ydamp"]
 [ext_resource type="Script" path="res://scripts/ammo_manager.gd" id="4_krlh4"]
 [ext_resource type="Script" path="res://scripts/ammo_data.gd" id="5_rwpl7"]
+[ext_resource type="PackedScene" uid="uid://sos7lwunnudf" path="res://prefabs/dodge_ammo.tscn" id="6_7owx8"]
 
 [sub_resource type="Animation" id="Animation_be5oe"]
 length = 0.001
@@ -67,6 +68,13 @@ ammo_name = "Frio"
 ammo_scene = ExtResource("3_ydamp")
 mag_size = 1
 max_ammo = 3
+
+[sub_resource type="Resource" id="Resource_xa4nr"]
+script = ExtResource("5_rwpl7")
+ammo_name = "Dodge"
+ammo_scene = ExtResource("6_7owx8")
+mag_size = 1
+max_ammo = 1
 
 [sub_resource type="BoxMesh" id="BoxMesh_f8eut"]
 
@@ -179,7 +187,7 @@ script = ExtResource("2_utfl5")
 
 [node name="AmmoManager" type="Node" parent="."]
 script = ExtResource("4_krlh4")
-ammo_catalogue = Array[ExtResource("5_rwpl7")]([SubResource("Resource_fojre"), SubResource("Resource_mlppp"), SubResource("Resource_e8yd0"), SubResource("Resource_7k1uy")])
+ammo_catalogue = Array[ExtResource("5_rwpl7")]([SubResource("Resource_fojre"), SubResource("Resource_mlppp"), SubResource("Resource_e8yd0"), SubResource("Resource_7k1uy"), SubResource("Resource_xa4nr")])
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.068, 0, 0, 0, 0.068, 0, 0, 0, 0.867, -0.00105453, -0.271005, -0.436536)

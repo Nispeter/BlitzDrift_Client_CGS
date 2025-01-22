@@ -13,6 +13,7 @@ var is_reloading: bool = false
 func _ready():
 	for ammo_data in ammo_catalogue:
 		if ammo_data:
+			# print(ammo_data.ammo_scene.resource_path.get_file())
 			ammo_data.current_ammo = ammo_data.max_ammo
 			ammo_data.current_mag = 0
 			ammo_data.is_active = true
@@ -58,26 +59,33 @@ func _format_ammo_label_text(ammo_data: AmmoData) -> String:
 func _change_ammo(index: int):
 	if is_reloading or index < 0 or index >= ammo_catalogue.size():
 		return
+	
 	while !ammo_catalogue[index].is_active:
-		index = (index+ 1) % ammo_catalogue.size()
-	print(index)
+		index = (index + 1) % ammo_catalogue.size()
+	
 	current_ammo_index = index
 	current_ammo_data = ammo_catalogue[index]
 	_update_ammo_labels()
 
-func consume_ammo() -> bool:
+
+func consume_ammo() -> void:
 	if current_ammo_data.current_mag > 0:
 		current_ammo_data.current_mag -= 1
 		if current_ammo_data.current_ammo == 0 and current_ammo_data.current_mag == 0 :
 			change_ammo()
 		_update_ammo_labels()  
-		return true
+		return 
 	else:
 		if current_ammo_data.current_ammo <= 0:
-			#TODO: change ammo on deplete, right now is updating on consuue ammo (no good)
 			current_ammo_data.is_active = false
 			change_ammo()
-	return false
+	return 
+
+func can_consume_ammo() -> bool:
+	if current_ammo_data.current_mag > 0:
+		return 1
+	return 0
+	
 
 func reload():
 	if is_reloading or current_ammo_data.current_mag == current_ammo_data.mag_size or current_ammo_data.current_ammo <= 0:

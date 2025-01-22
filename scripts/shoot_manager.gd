@@ -17,7 +17,7 @@ func _ready():
 func shoot():
 	if !can_shoot:
 		return
-	if ammo_manager.consume_ammo():
+	if ammo_manager.can_consume_ammo():
 		var ammo_instance: RigidBody3D = ammo_manager.current_ammo_data.ammo_scene.instantiate()
 		get_parent().add_child(ammo_instance)
 		ammo_instance.set_as_top_level(true)
@@ -30,7 +30,8 @@ func shoot():
 		smoke_particles.restart()
 		if animation_player.has_animation("recoil"):
 			animation_player.play("recoil")
-
+		
+		ammo_manager.consume_ammo()
 		can_shoot = false
 		await get_tree().create_timer(fire_interval).timeout
 		can_shoot = true
