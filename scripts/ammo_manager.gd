@@ -42,7 +42,7 @@ func _update_ammo_labels():
 		
 		if !ammo_label.visible:
 			ammo_catalogue[i].is_active = false
-			return
+			continue
 		
 		ammo_label.modulate = Color(1, 1, 1, 1) if i == current_ammo_index else Color(1, 1, 1, 0.3)
 		ammo_label.text = _format_ammo_label_text(ammo_catalogue[i])
@@ -68,14 +68,15 @@ func _change_ammo(index: int):
 func consume_ammo() -> bool:
 	if current_ammo_data.current_mag > 0:
 		current_ammo_data.current_mag -= 1
+		if current_ammo_data.current_ammo == 0 and current_ammo_data.current_mag == 0 :
+			change_ammo()
 		_update_ammo_labels()  
 		return true
 	else:
 		if current_ammo_data.current_ammo <= 0:
 			#TODO: change ammo on deplete, right now is updating on consuue ammo (no good)
-			change_ammo()
 			current_ammo_data.is_active = false
-		_update_ammo_labels()
+			change_ammo()
 	return false
 
 func reload():
@@ -84,7 +85,7 @@ func reload():
 	is_reloading = true
 	var elapsed_time = 0.0
 
-	while elapsed_time < reload_duration:
+	while elapsed_time < reload_duration: 
 		elapsed_time += get_process_delta_time()
 		reload_indicator.value = (elapsed_time / reload_duration) * 100
 		await get_tree().process_frame
