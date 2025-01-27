@@ -1,13 +1,85 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0ox864tdbhln"]
+[gd_scene load_steps=6 format=3 uid="uid://c0ox864tdbhln"]
 
-[ext_resource type="Script" path="res://scripts/UI/screen_manager.gd" id="1_fhsu5"]
+[ext_resource type="Script" path="res://scripts/ui/screen_manager.gd" id="1_fhsu5"]
 [ext_resource type="PackedScene" uid="uid://b2got3actbsyc" path="res://scenes/game_ui.tscn" id="2_3w2sf"]
-[ext_resource type="Script" path="res://scripts/UI/pause_screen.gd" id="2_33gc6"]
+[ext_resource type="Script" path="res://scripts/ui/pause_screen.gd" id="2_33gc6"]
+[ext_resource type="Script" path="res://scripts/ui/tank_customization_screen.gd" id="4_ldjh3"]
+[ext_resource type="PackedScene" uid="uid://dpxrrycgaqlup" path="res://prefabs/ui/selector_with_label.tscn" id="4_oud7f"]
 
 [node name="ScreenManager" type="CanvasLayer"]
 script = ExtResource("1_fhsu5")
 
 [node name="GameUI" parent="." instance=ExtResource("2_3w2sf")]
+visible = false
+
+[node name="TankCustomizationScreen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_ldjh3")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TankCustomizationScreen"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -310.0
+offset_bottom = -110.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="TankCustomizationScreen/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="part_selector" parent="TankCustomizationScreen/HBoxContainer/VBoxContainer2" instance=ExtResource("4_oud7f")]
+layout_mode = 2
+
+[node name="part_selector2" parent="TankCustomizationScreen/HBoxContainer/VBoxContainer2" instance=ExtResource("4_oud7f")]
+layout_mode = 2
+
+[node name="part_selector3" parent="TankCustomizationScreen/HBoxContainer/VBoxContainer2" instance=ExtResource("4_oud7f")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TankCustomizationScreen/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="TankCustomizationScreen/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="part_selector" parent="TankCustomizationScreen/HBoxContainer/VBoxContainer3" instance=ExtResource("4_oud7f")]
+layout_mode = 2
+
+[node name="part_selector2" parent="TankCustomizationScreen/HBoxContainer/VBoxContainer3" instance=ExtResource("4_oud7f")]
+layout_mode = 2
+
+[node name="part_selector3" parent="TankCustomizationScreen/HBoxContainer/VBoxContainer3" instance=ExtResource("4_oud7f")]
+layout_mode = 2
+
+[node name="ConfirmButton" type="Button" parent="TankCustomizationScreen"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -41.0
+offset_top = -77.0
+offset_right = 41.0
+offset_bottom = -46.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "CONFIRM
+"
 
 [node name="PauseScreen" type="Control" parent="."]
 visible = false

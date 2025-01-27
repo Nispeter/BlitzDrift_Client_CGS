@@ -1,0 +1,343 @@
+[gd_scene load_steps=42 format=3 uid="uid://d2ab8r80x8uy2"]
+
+[ext_resource type="Script" path="res://scripts/tank_customization_loader.gd" id="2_wee0d"]
+[ext_resource type="PackedScene" uid="uid://c0ox864tdbhln" path="res://scenes/screen_manager.tscn" id="3_la6pn"]
+[ext_resource type="Script" path="res://scripts/tank_customization/editor_camera.gd" id="3_ocpdw"]
+[ext_resource type="Script" path="res://scripts/tank_customization_system.gd" id="4_g6un0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sm4ti"]
+size = Vector3(0.661133, 0.682617, 0.912109)
+
+[sub_resource type="Curve" id="Curve_sj2x0"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_3f4hs"]
+curve = SubResource("Curve_sj2x0")
+
+[sub_resource type="Curve" id="Curve_nrpwp"]
+_data = [Vector2(0.130435, 1), 0.0, 0.0, 0, 0, Vector2(0.73913, 0.318681), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_438ye"]
+curve = SubResource("Curve_nrpwp")
+
+[sub_resource type="Curve" id="Curve_kutg4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.538462), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jb53g"]
+curve = SubResource("Curve_kutg4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_b71bb"]
+lifetime_randomness = 0.3
+particle_flag_align_y = true
+emission_shape_scale = Vector3(1, 0, 1)
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 0.2
+emission_ring_radius = 0.6
+emission_ring_inner_radius = 0.0
+angle_min = 1.07288e-05
+angle_max = 200.0
+radial_velocity_min = 1.99998
+radial_velocity_max = 5.99998
+radial_velocity_curve = SubResource("CurveTexture_438ye")
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 0.999998
+linear_accel_max = 4.0
+scale_min = 0.05
+scale_max = 0.4
+scale_curve = SubResource("CurveTexture_jb53g")
+alpha_curve = SubResource("CurveTexture_3f4hs")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8r3td"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.262933, 0.262932, 0.262932, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_43yhi"]
+material = SubResource("StandardMaterial3D_8r3td")
+
+[sub_resource type="BoxMesh" id="BoxMesh_f8eut"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8xei"]
+albedo_color = Color(0.110173, 0.109837, 0.227994, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mpxqi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eb082"]
+albedo_color = Color(0.126763, 0.126423, 0.256213, 1)
+
+[sub_resource type="Animation" id="Animation_be5oe"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_8pb1j"]
+resource_name = "recoil"
+length = 0.5
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.00105453, -0.271005, -0.436536, 0.0666667, 1, -0.00105453, -0.271005, -0.210372, 0.5, 1, -0.00105453, -0.271005, -0.436536)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D2")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.000869036, -0.271599, -0.818788, 0.0666667, 1, 0.000869036, -0.271599, -0.571448, 0.5, 1, 0.000869036, -0.271599, -0.818788)
+tracks/2/type = "position_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeshInstance3D3")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0, -0.266428, -0.310117, 0.233333, 1, 0, -0.266428, -0.171508, 0.5, 1, 0, -0.266428, -0.310117)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w6h36"]
+_data = {
+"RESET": SubResource("Animation_be5oe"),
+"recoil": SubResource("Animation_8pb1j")
+}
+
+[sub_resource type="BoxMesh" id="BoxMesh_0s4b1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l0c2e"]
+albedo_color = Color(0.146509, 0.146177, 0.289694, 1)
+
+[sub_resource type="Curve" id="Curve_cgwyi"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_u7dnd"]
+curve = SubResource("Curve_cgwyi")
+
+[sub_resource type="Curve" id="Curve_okumf"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8iuit"]
+curve = SubResource("Curve_okumf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sl07v"]
+particle_flag_align_y = true
+direction = Vector3(0, 0, -1)
+spread = 10.0
+initial_velocity_min = 0.2
+initial_velocity_max = 20.0
+gravity = Vector3(0, 1, 0)
+alpha_curve = SubResource("CurveTexture_u7dnd")
+emission_curve = SubResource("CurveTexture_8iuit")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lqyn0"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.92945, 0.395696, 0, 1)
+emission_enabled = true
+emission = Color(0.888392, 0.419836, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_73l8m"]
+material = SubResource("StandardMaterial3D_lqyn0")
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="Curve" id="Curve_i6nrt"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.992754, 0.032967), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_s6x8q"]
+curve = SubResource("Curve_i6nrt")
+
+[sub_resource type="Curve" id="Curve_wuato"]
+
+[sub_resource type="CurveTexture" id="CurveTexture_k0qr7"]
+curve = SubResource("Curve_wuato")
+
+[sub_resource type="Curve" id="Curve_gbyoj"]
+_data = [Vector2(0.130435, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qeqgb"]
+curve = SubResource("Curve_gbyoj")
+
+[sub_resource type="Curve" id="Curve_yf6ie"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 0), 0.0, 0.0, 0, 0, Vector2(2e-05, 0.10989), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_tn1fy"]
+curve = SubResource("Curve_yf6ie")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lm6nu"]
+lifetime_randomness = 1.0
+particle_flag_align_y = true
+emission_shape_scale = Vector3(1, 0, 1)
+angle_min = 1.07288e-05
+angle_max = 180.0
+angle_curve = SubResource("CurveTexture_k0qr7")
+velocity_pivot = Vector3(0, 0.05, 1)
+direction = Vector3(0, 0, -1)
+spread = 180.0
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+radial_velocity_min = 2.99998
+radial_velocity_max = 5.99998
+radial_velocity_curve = SubResource("CurveTexture_qeqgb")
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_max = 0.4
+scale_curve = SubResource("CurveTexture_tn1fy")
+color = Color(0.313928, 0.287318, 0.262416, 1)
+alpha_curve = SubResource("CurveTexture_s6x8q")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_285hp"]
+transparency = 1
+vertex_color_use_as_albedo = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_02yeu"]
+material = SubResource("StandardMaterial3D_285hp")
+size = Vector3(2, 2, 2)
+
+[node name="TankCustomization" type="Node3D"]
+
+[node name="Tank" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.417561, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tank"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0766598, 0)
+shape = SubResource("BoxShape3D_sm4ti")
+
+[node name="Chassis" type="Node3D" parent="Tank"]
+
+[node name="DustLand" type="GPUParticles3D" parent="Tank/Chassis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.268852, 0)
+emitting = false
+amount = 40
+lifetime = 0.6
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_b71bb")
+draw_pass_1 = SubResource("BoxMesh_43yhi")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tank/Chassis"]
+transform = Transform3D(0.754241, 0, 0, 0, 0.449535, 0, 0, 0, 1.01179, 0, 0, 0)
+mesh = SubResource("BoxMesh_f8eut")
+surface_material_override/0 = SubResource("StandardMaterial3D_h8xei")
+
+[node name="Turret" type="Node3D" parent="Tank/Chassis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.319067, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tank/Chassis/Turret"]
+transform = Transform3D(0.401513, 0, 0, 0, 0.255422, 0, 0, 0, 0.535049, 0, 0, 0)
+mesh = SubResource("BoxMesh_mpxqi")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_eb082")
+
+[node name="Cannon" type="Node3D" parent="Tank/Chassis/Turret"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.319067, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Tank/Chassis/Turret/Cannon"]
+libraries = {
+"": SubResource("AnimationLibrary_w6h36")
+}
+
+[node name="ShootManager" type="Node3D" parent="Tank/Chassis/Turret/Cannon"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.267528, -0.962894)
+
+[node name="AmmoManager" type="Node" parent="Tank/Chassis/Turret/Cannon"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tank/Chassis/Turret/Cannon"]
+transform = Transform3D(0.068, 0, 0, 0, 0.068, 0, 0, 0, 0.867, -0.00105453, -0.271005, -0.436536)
+mesh = SubResource("BoxMesh_0s4b1")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_l0c2e")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Tank/Chassis/Turret/Cannon"]
+transform = Transform3D(0.0887975, 0, 0, 0, 0.0923331, 0, 0, 0, 0.263755, 0.000869036, -0.271599, -0.818788)
+mesh = SubResource("BoxMesh_0s4b1")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_l0c2e")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Tank/Chassis/Turret/Cannon"]
+transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.263485, 0, -0.266428, -0.310117)
+mesh = SubResource("BoxMesh_0s4b1")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_l0c2e")
+
+[node name="RayCast3D" type="RayCast3D" parent="Tank/Chassis/Turret/Cannon"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.261057, -1.01159)
+target_position = Vector3(0, 0, -30)
+debug_shape_thickness = 5
+
+[node name="ShootFire" type="GPUParticles3D" parent="Tank/Chassis/Turret/Cannon"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.266273, -0.95747)
+emitting = false
+amount = 60
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_sl07v")
+draw_pass_1 = SubResource("BoxMesh_73l8m")
+
+[node name="ShootSmoke" type="GPUParticles3D" parent="Tank/Chassis/Turret/Cannon"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.232545, -0.914939)
+emitting = false
+amount = 40
+one_shot = true
+explosiveness = 1.0
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_lm6nu")
+draw_pass_1 = SubResource("BoxMesh_02yeu")
+
+[node name="RayCast3D_TopRight" type="RayCast3D" parent="Tank/Chassis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.350668, -0.0887863, -0.475307)
+target_position = Vector3(0, -0.2, 0)
+
+[node name="RayCast3D_TopLeft" type="RayCast3D" parent="Tank/Chassis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.356109, -0.0887863, -0.475307)
+target_position = Vector3(0, -0.2, 0)
+
+[node name="RayCast3D_BottomRight" type="RayCast3D" parent="Tank/Chassis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.350668, -0.0887863, 0.464955)
+target_position = Vector3(0, -0.2, 0)
+
+[node name="RayCast3D_BottomLeft" type="RayCast3D" parent="Tank/Chassis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.356109, -0.0887863, 0.464955)
+target_position = Vector3(0, -0.2, 0)
+
+[node name="TankCustomization" type="Node" parent="Tank"]
+script = ExtResource("2_wee0d")
+
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 0.916041, 0.401085, 0, -0.401085, 0.916041, 0, 2.2015, 3.46557)
+script = ExtResource("3_ocpdw")
+rotation_speed = 0.01
+max_distance = 8.0
+target = NodePath("../Tank")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.164807, 0.986326, 0, -0.986326, 0.164807, 0, 6.74475, 2.6678)
+light_energy = 20.0
+
+[node name="ScreenManager" parent="." instance=ExtResource("3_la6pn")]
+
+[node name="TankCustomizationSystem" type="Node" parent="."]
+script = ExtResource("4_g6un0")
+tank_preview = NodePath("../Tank")
+base_paths = {
+"cannon": NodePath("../Tank/Chassis/Turret/Cannon/MeshInstance3D2"),
+"chassis": NodePath("../Tank/Chassis/MeshInstance3D"),
+"turret": NodePath("../Tank/Chassis/Turret/MeshInstance3D")
+}
+part_selectors = {
+"cannon": NodePath("../ScreenManager/TankCustomizationScreen/HBoxContainer/VBoxContainer2/part_selector"),
+"chassis": NodePath("../ScreenManager/TankCustomizationScreen/HBoxContainer/VBoxContainer2/part_selector3"),
+"turret": NodePath("../ScreenManager/TankCustomizationScreen/HBoxContainer/VBoxContainer2/part_selector2")
+}
+
+[connection signal="pressed" from="ScreenManager/TankCustomizationScreen/ConfirmButton" to="TankCustomizationSystem" method="save_configuration"]
+
+[editable path="ScreenManager"]

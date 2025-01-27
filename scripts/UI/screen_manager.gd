@@ -4,6 +4,22 @@ var screen_stack: Array = []
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	_init_scene_ui()
+
+func _init_scene_ui():
+	var current_scene = get_tree().current_scene
+	if current_scene.name == "TankCustomization":
+		_init_tankCustomiaztion_ui()
+	if current_scene.name == "Main":
+		_init_game_ui()
+
+func _init_game_ui():
+	$GameUI.visible = true
+	$TankCustomizationScreen.visible = false
+
+func _init_tankCustomiaztion_ui():
+	$GameUI.visible = false
+	$TankCustomizationScreen.visible = true
 
 func open_screen(screen: Screen) -> void:
 	_push_screen(screen)
@@ -76,3 +92,4 @@ func togglePause():
 
 func toggleSettings():
 	toggleScreen($SettingsScreen)
+	
