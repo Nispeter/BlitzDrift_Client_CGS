@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/main_camera.gd" id="1_fiko5"]
 [ext_resource type="PackedScene" uid="uid://3o8o8vy44jyc" path="res://prefabs/chassis.tscn" id="2_ppsrf"]
-[ext_resource type="Script" path="res://scripts/tank_customization_loader.gd" id="3_t4jxp"]
+[ext_resource type="Script" path="res://scripts/tank_customization/tank_customization_loader.gd" id="3_t4jxp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sm4ti"]
 size = Vector3(0.661133, 0.682617, 0.912109)
@@ -27,13 +27,14 @@ target_tank = NodePath("../Chassis")
 gravity = -100.0
 base_jump_force = 20.0
 
-[node name="TankCustomization" type="Node" parent="."]
+[node name="TankCustomizationLoader" type="Node" parent="."]
 script = ExtResource("3_t4jxp")
 base_paths = {
-"cannon": NodePath("../Chassis/Turret/Cannon"),
-"chassis": NodePath("../Chassis"),
-"turret": NodePath("../Chassis/Turret")
+"cannon": NodePath("../Chassis/Turret/Cannon/MeshInstance3D2"),
+"chassis": NodePath("../Chassis/MeshInstance3D"),
+"turret": NodePath("../Chassis/Turret/MeshInstance3D")
 }
 
 [editable path="Chassis"]
 [editable path="Chassis/Turret"]
+[editable path="Chassis/Turret/Cannon"]

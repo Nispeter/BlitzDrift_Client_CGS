@@ -5,8 +5,8 @@ extends Control
 @export var part_name_label: Label
 @export var part_type_label: Label
 
-var part_name: String = ""  # To identify which part this selector controls
-var customization_system: Node  # Reference to the tank customization system
+var part_name: String = ""  
+var customization_system: Node  
 
 # Initializes the selector with the tank customization system and the part name
 func setup_selector(customization_system: Node, part_name: String):
@@ -21,9 +21,9 @@ func setup_selector(customization_system: Node, part_name: String):
 
 # Updates the labels to show the current part's state
 func update_labels():
-	if customization_system and customization_system.tank_parts.has(part_name):
-		var selected_index = customization_system.selected_indices[part_name]
-		var selected_option = customization_system.tank_parts[part_name][selected_index]
+	if customization_system and TankParts.tank_parts.has(part_name):
+		var selected_index = customization_system.tank_config.selected_indices[part_name]
+		var selected_option = TankParts.tank_parts[part_name][selected_index]
 		part_name_label.text = selected_option["name"]
 
 # Handles the "next" button press
