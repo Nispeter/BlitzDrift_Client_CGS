@@ -17,9 +17,9 @@ var saved_resources: Dictionary = {}
 }
 
 func _ready():
-	setup_selectors()
 	load_tank_resource()
 	update_preview()
+	setup_selectors()
 
 # Configura los nodos selectores para las partes del tanque
 func setup_selectors():
