@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bil56lwrmv3t0" path="res://prefabs/ammo_prefab.tscn" id="3_ydamp"]
 [ext_resource type="Script" path="res://scripts/ammo_manager.gd" id="4_krlh4"]
 [ext_resource type="Script" path="res://scripts/ammo_data.gd" id="5_rwpl7"]
-[ext_resource type="BoxMesh" uid="uid://d07ghouqkqktb" path="res://models/cannon1.tres" id="7_jceq5"]
+[ext_resource type="BoxMesh" uid="uid://d07ghouqkqktb" path="res://assets/models/cannon1.tres" id="7_jceq5"]
 
 [sub_resource type="Animation" id="Animation_be5oe"]
 length = 0.001

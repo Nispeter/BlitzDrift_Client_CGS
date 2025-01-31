@@ -1,14 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://b2got3actbsyc"]
+[gd_scene load_steps=6 format=3 uid="uid://b2got3actbsyc"]
 
+[ext_resource type="Script" path="res://scripts/ui/screen.gd" id="1_huv6d"]
 [ext_resource type="Texture2D" uid="uid://cfs6385i8ltlq" path="res://assets/images/reload_circle.png" id="2_4ucu6"]
 [ext_resource type="Texture2D" uid="uid://bpx1dhwnwvjad" path="res://assets/images/dot.png" id="3_8wak1"]
 [ext_resource type="Texture2D" uid="uid://d4na5qrq4rlki" path="res://assets/images/reload_circle_border.png" id="3_rufdb"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_i3vkt"]
 
-[node name="GameUI" type="CanvasLayer"]
+[node name="GameUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_huv6d")
 
 [node name="SpeedLabel" type="Label" parent="."]
+layout_mode = 0
 offset_left = 66.0
 offset_top = 572.0
 offset_right = 106.0
@@ -16,6 +21,7 @@ offset_bottom = 595.0
 text = "SPD"
 
 [node name="GearLabel" type="Label" parent="."]
+layout_mode = 0
 offset_left = 66.0
 offset_top = 522.0
 offset_right = 108.0
@@ -24,6 +30,7 @@ text = "GEAR
 "
 
 [node name="RevolutionLabel" type="Label" parent="."]
+layout_mode = 0
 offset_left = 66.0
 offset_top = 548.0
 offset_right = 106.0
@@ -32,6 +39,7 @@ text = "REVS"
 
 [node name="AmmoLabel" type="Label" parent="."]
 visible = false
+layout_mode = 0
 offset_left = 782.0
 offset_top = 514.0
 offset_right = 835.0
@@ -39,6 +47,7 @@ offset_bottom = 537.0
 text = "AMMO"
 
 [node name="AmmoSection" type="VBoxContainer" parent="."]
+layout_mode = 0
 offset_left = 782.0
 offset_top = 514.0
 offset_right = 835.0

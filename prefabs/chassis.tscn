@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/movement_controller.gd" id="1_gd1xj"]
 [ext_resource type="PackedScene" uid="uid://la6w1smr8cdw" path="res://prefabs/turret.tscn" id="2_feo0s"]
-[ext_resource type="BoxMesh" uid="uid://c3epi2r0pr8p4" path="res://models/chassis1.tres" id="2_sla1p"]
+[ext_resource type="BoxMesh" uid="uid://c3epi2r0pr8p4" path="res://assets/models/chassis1.tres" id="2_sla1p"]
 
 [sub_resource type="Curve" id="Curve_sj2x0"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

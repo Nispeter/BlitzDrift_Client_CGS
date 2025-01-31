@@ -1,18 +1,27 @@
-[gd_scene load_steps=6 format=3 uid="uid://c0ox864tdbhln"]
+[gd_scene load_steps=11 format=3 uid="uid://c0ox864tdbhln"]
 
 [ext_resource type="Script" path="res://scripts/ui/screen_manager.gd" id="1_fhsu5"]
 [ext_resource type="PackedScene" uid="uid://b2got3actbsyc" path="res://scenes/game_ui.tscn" id="2_3w2sf"]
 [ext_resource type="Script" path="res://scripts/ui/pause_screen.gd" id="2_33gc6"]
 [ext_resource type="Script" path="res://scripts/ui/tank_customization_screen.gd" id="4_ldjh3"]
 [ext_resource type="PackedScene" uid="uid://dpxrrycgaqlup" path="res://prefabs/ui/selector_with_label.tscn" id="4_oud7f"]
+[ext_resource type="FontFile" uid="uid://yy41xktp8seo" path="res://assets/fonts/Stormfaze.otf" id="6_p5wka"]
+[ext_resource type="PackedScene" uid="uid://bw433okjm0q0i" path="res://scenes/scene_controller.tscn" id="6_tboua"]
+[ext_resource type="FontFile" uid="uid://brl5drqvh6tu4" path="res://assets/fonts/AtlantisHeadline-Bold.ttf" id="7_tggbk"]
+[ext_resource type="FontFile" uid="uid://d22au4xxja55o" path="res://assets/fonts/AtlantisText-Bold.ttf" id="8_wrm2v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6y0b0"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="ScreenManager" type="CanvasLayer"]
 script = ExtResource("1_fhsu5")
 
 [node name="GameUI" parent="." instance=ExtResource("2_3w2sf")]
 visible = false
+is_base_screen = true
 
 [node name="TankCustomizationScreen" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,6 +31,7 @@ offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_ldjh3")
+is_base_screen = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TankCustomizationScreen"]
 layout_mode = 1
@@ -143,6 +153,153 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "SETTINGS"
 
+[node name="MainMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_33gc6")
+is_base_screen = true
+allows_pause = false
+
+[node name="ColorRect" type="ColorRect" parent="MainMenu"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.392157)
+
+[node name="TitleBox_1" type="HBoxContainer" parent="MainMenu"]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 66.0
+offset_bottom = 187.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MainMenu/TitleBox_1"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_p5wka")
+theme_override_font_sizes/font_size = 100
+text = "BLITZ DRIFT"
+horizontal_alignment = 1
+
+[node name="ButtonsBox_1" type="VBoxContainer" parent="MainMenu"]
+visible = false
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0
+offset_top = -34.0
+offset_right = 274.0
+offset_bottom = 230.0
+grow_vertical = 2
+theme_override_constants/separation = 14
+
+[node name="Button" type="Button" parent="MainMenu/ButtonsBox_1"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_p5wka")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_6y0b0")
+text = "CONTINUE"
+alignment = 0
+
+[node name="Button4" type="Button" parent="MainMenu/ButtonsBox_1"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_p5wka")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_6y0b0")
+text = "CUSTOMIZE"
+alignment = 0
+
+[node name="Button2" type="Button" parent="MainMenu/ButtonsBox_1"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_p5wka")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_6y0b0")
+text = "SETTINGS"
+alignment = 0
+
+[node name="Button3" type="Button" parent="MainMenu/ButtonsBox_1"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_p5wka")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_6y0b0")
+text = "EXIT
+"
+alignment = 0
+
+[node name="TitleBox_2" type="HBoxContainer" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 49.0
+offset_bottom = 199.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MainMenu/TitleBox_2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_tggbk")
+theme_override_font_sizes/font_size = 70
+text = "BLITZ DRIFT"
+horizontal_alignment = 1
+
+[node name="ButtonsBox_2" type="VBoxContainer" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0
+offset_top = -46.0
+offset_right = 274.0
+offset_bottom = 218.0
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Button" type="Button" parent="MainMenu/ButtonsBox_2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_wrm2v")
+theme_override_font_sizes/font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_6y0b0")
+text = "CONTINUE"
+alignment = 0
+
+[node name="Button4" type="Button" parent="MainMenu/ButtonsBox_2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_wrm2v")
+theme_override_font_sizes/font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_6y0b0")
+text = "CUSTOMIZE"
+alignment = 0
+
+[node name="Button2" type="Button" parent="MainMenu/ButtonsBox_2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_wrm2v")
+theme_override_font_sizes/font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_6y0b0")
+text = "SETTINGS"
+alignment = 0
+
+[node name="Button3" type="Button" parent="MainMenu/ButtonsBox_2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_wrm2v")
+theme_override_font_sizes/font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_6y0b0")
+text = "EXIT
+"
+alignment = 0
+
 [node name="SettingsScreen" type="Control" parent="."]
 visible = false
 layout_mode = 3
@@ -188,6 +345,16 @@ offset_right = 254.0
 offset_bottom = 642.0
 text = "BACK!"
 
+[node name="SceneController" parent="." instance=ExtResource("6_tboua")]
+
 [connection signal="pressed" from="PauseScreen/VBoxContainer/Button" to="." method="back"]
 [connection signal="pressed" from="PauseScreen/VBoxContainer/Button2" to="." method="toggleSettings"]
+[connection signal="pressed" from="MainMenu/ButtonsBox_1/Button" to="SceneController" method="to_main"]
+[connection signal="pressed" from="MainMenu/ButtonsBox_1/Button4" to="SceneController" method="to_tank_customization"]
+[connection signal="pressed" from="MainMenu/ButtonsBox_1/Button2" to="." method="toggleSettings"]
+[connection signal="pressed" from="MainMenu/ButtonsBox_1/Button3" to="." method="toggleSettings"]
+[connection signal="pressed" from="MainMenu/ButtonsBox_2/Button" to="SceneController" method="to_main"]
+[connection signal="pressed" from="MainMenu/ButtonsBox_2/Button4" to="SceneController" method="to_tank_customization"]
+[connection signal="pressed" from="MainMenu/ButtonsBox_2/Button2" to="." method="toggleSettings"]
+[connection signal="pressed" from="MainMenu/ButtonsBox_2/Button3" to="." method="toggleSettings"]
 [connection signal="pressed" from="SettingsScreen/Button" to="." method="toggleSettings"]
