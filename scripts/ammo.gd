@@ -46,8 +46,16 @@ func ricochet(normal: Vector3) -> void:
 	
 
 
-func on_hit(body: Node) -> void:
+func on_hit(body: Object) -> void:
 	print("Bullet hit: ", body.name)
+	if body.has_node("shootable"):
+		
+		var shootable = body.get_node("shootable")
+		if shootable.has_method("take_damage"):
+			shootable.take_damage(1, self)
+			##CAmbiar por daño de la bala cuando ammo tenga daño xD
+	else: 
+		print("Tipo de body: ", body)
 
 func _on_area_entered(area: Area3D) -> void:
 	if area != shooter:
