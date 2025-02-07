@@ -1,29 +1,59 @@
-[gd_scene load_steps=7 format=3 uid="uid://c5guohn3wbbwm"]
+[gd_scene load_steps=8 format=3 uid="uid://c5guohn3wbbwm"]
 
+[ext_resource type="Script" path="res://scripts/enviroment/road_2.gd" id="1_2o62l"]
 [ext_resource type="Texture2D" uid="uid://cxn7lwalluanu" path="res://assets/textures/GroundDirt03_1K_BaseColor.png" id="1_3ljxb"]
-[ext_resource type="Texture2D" uid="uid://bo7xlewb8fvws" path="res://assets/textures/GroundDirt03_1K_Normal.png" id="2_bb5ag"]
-[ext_resource type="PackedScene" uid="uid://dbbdp2couyfd7" path="res://scenes/tank_prefab.tscn" id="3_igaxw"]
-[ext_resource type="PackedScene" uid="uid://b2got3actbsyc" path="res://scenes/game_ui.tscn" id="4_bwkgg"]
+[ext_resource type="PackedScene" uid="uid://bfaxy4hehkvlb" path="res://scenes/Enviroment/breakable_box.tscn" id="2_g717g"]
+[ext_resource type="PackedScene" uid="uid://dbbdp2couyfd7" path="res://prefabs/tank_prefab.tscn" id="3_igaxw"]
+[ext_resource type="PackedScene" uid="uid://c0ox864tdbhln" path="res://scenes/screen_manager.tscn" id="4_84t2d"]
 
 [sub_resource type="Curve3D" id="Curve3D_ich35"]
 _data = {
-"points": PackedVector3Array(6.82747, 0.590927, -0.773712, -6.82747, -0.590927, 0.773712, 63.2182, -0.357056, 1.95303, 4.75341, -1.7793, 2.0768, -4.75341, 1.7793, -2.0768, 51.6629, -0.616699, -8.69337, 7.64966, -0.373596, 0.687073, -7.64966, 0.373596, -0.687073, 22.9354, 2.19568, -11.9543, 4.47305, 1.27686, -5.09885, -4.47305, -1.27686, 5.09885, 15.747, -0.811401, 3.32236, 0, 0, 0, 0, 0, 0, 0.0781565, -0.331543, 1.30188, -1.53168, -0.933594, 4.45145, 1.53168, 0.933594, -4.45145, -0.302002, 3.62512, -15.1948, -10.9948, -0.713356, 0.458221, 10.9948, 0.713356, -0.458221, 15.1817, 5.71313, -22.2891, -3.28122, 2.30524, -2.59888, 3.28122, -2.30524, 2.59888, 67.5179, 6.20007, -23.7433, 1.68687, 0.72229, -3.5528, -1.68687, -0.72229, 3.5528, 74.3306, 1.68799, -5.97589, 6.82747, 0.590927, -0.773712, -6.82747, -0.590927, 0.773712, 63.2182, -0.357056, 1.95303),
+"points": PackedVector3Array(6.82747, 0.590927, -0.773712, -6.82747, -0.590927, 0.773712, 63.2182, -0.357056, 1.95303, 4.35718, -0.996674, 2.14014, -4.35718, 0.996674, -2.14014, 51.6629, -0.616699, -8.69337, 10.8993, 0.272399, -1.30101, -10.8993, -0.272399, 1.30101, 26.9779, 2.19568, -4.57637, 4.47305, 1.27686, -5.09885, -4.47305, -1.27686, 5.09885, 15.747, -0.811401, 3.32236, 0, 0, 0, 0, 0, 0, 0.0781565, -0.331543, 1.30188, -1.53168, -0.933594, 4.45145, 1.53168, 0.933594, -4.45145, -0.302002, 3.62512, -18.5518, -11.8224, -3.02485, 0.985348, 11.8224, 3.02485, -0.985348, 15.1886, 5.71313, -22.2891, -3.28122, 2.30524, -2.59888, 3.28122, -2.30524, 2.59888, 67.5179, 6.20007, -23.7433, 1.68687, 0.72229, -3.5528, -1.68687, -0.72229, 3.5528, 74.3306, 1.68799, -5.97589, 6.82747, 0.590927, -0.773712, -6.82747, -0.590927, 0.773712, 63.2182, -0.357056, 1.95303),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 10
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_em4t6"]
 albedo_texture = ExtResource("1_3ljxb")
-normal_texture = ExtResource("2_bb5ag")
 uv1_triplanar = true
 
-[node name="Road3" type="Node3D"]
+[node name="Road2" type="Node3D"]
 
 [node name="Road" type="Node3D" parent="."]
 
-[node name="Path3D" type="Path3D" parent="Road"]
+[node name="Path3D" type="Path3D" parent="Road" node_paths=PackedStringArray("spawn_node")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.461426, -0.606018, 1.62122)
 curve = SubResource("Curve3D_ich35")
+script = ExtResource("1_2o62l")
+spawn_node = NodePath("Spawn")
+targets_count = 5.0
+
+[node name="Spawn" type="Node" parent="Road/Path3D"]
+
+[node name="target" type="Node3D" parent="Road/Path3D/Spawn"]
+transform = Transform3D(-0.105803, -0.98227, 0.154764, 0.000588314, 0.155576, 0.987824, -0.994387, 0.104605, -0.0158825, 63.2182, 0.642944, 1.95303)
+
+[node name="caja" parent="Road/Path3D/Spawn/target" instance=ExtResource("2_g717g")]
+
+[node name="@Node3D@38897" type="Node3D" parent="Road/Path3D/Spawn"]
+transform = Transform3D(-0.982451, 0.148664, 0.112647, 0.115827, 0.0128841, 0.993186, 0.1462, 0.988804, -0.0298774, 36.9926, 2.83388, -6.62804)
+
+[node name="caja" parent="Road/Path3D/Spawn/@Node3D@38897" instance=ExtResource("2_g717g")]
+
+[node name="@Node3D@38898" type="Node3D" parent="Road/Path3D/Spawn"]
+transform = Transform3D(0.0618725, -0.984769, 0.162484, 0.0308095, 0.164603, 0.985879, -0.997608, -0.0559927, 0.0405247, 8.00487, -0.177264, 4.74452)
+
+[node name="caja" parent="Road/Path3D/Spawn/@Node3D@38898" instance=ExtResource("2_g717g")]
+
+[node name="@Node3D@38899" type="Node3D" parent="Road/Path3D/Spawn"]
+transform = Transform3D(-0.778303, 0.602084, -0.178156, -0.161596, 0.082106, 0.983436, 0.606738, 0.7942, 0.0333908, 2.81609, 4.88508, -21.6023)
+
+[node name="caja" parent="Road/Path3D/Spawn/@Node3D@38899" instance=ExtResource("2_g717g")]
+
+[node name="@Node3D@38900" type="Node3D" parent="Road/Path3D/Spawn"]
+transform = Transform3D(-0.960278, 0.246626, -0.13054, -0.128617, 0.0239651, 0.991405, 0.247635, 0.968814, 0.00870711, 34.498, 8.74704, -23.7637)
+
+[node name="caja" parent="Road/Path3D/Spawn/@Node3D@38900" instance=ExtResource("2_g717g")]
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="Road"]
 use_collision = true
@@ -43,13 +73,15 @@ path_u_distance = 1.0
 path_joined = true
 material = SubResource("StandardMaterial3D_em4t6")
 
+[node name="Spawn" type="Node" parent="Road"]
+
 [node name="Tanks" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.522339, 0)
 
 [node name="Tank" parent="Tanks" instance=ExtResource("3_igaxw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.27581, 0)
 
-[node name="GameUI" parent="Tanks" instance=ExtResource("4_bwkgg")]
+[node name="ScreenManager" parent="Tanks" instance=ExtResource("4_84t2d")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23.0117, 0)

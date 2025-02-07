@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://ie4ex8g43oo"]
+
+[ext_resource type="Script" path="res://scripts/enviroment/collectible.gd" id="1_c32y4"]
+[ext_resource type="ArrayMesh" uid="uid://be2vawer5xx08" path="res://assets/objects/large_ammo_box_240.obj" id="1_chyh2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cldiq"]
+size = Vector3(0.906982, 0.519806, 0.403076)
+
+[node name="Ammo Box" type="Area3D"]
+script = ExtResource("1_c32y4")
+
+[node name="LargeAmmoBox240" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19165, 0.0433044, 0.350708)
+mesh = ExtResource("1_chyh2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.151978, 0.316483, 0.358002)
+shape = SubResource("BoxShape3D_cldiq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]

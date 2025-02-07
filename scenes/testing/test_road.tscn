@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6ptpdnj6ym15"]
+
+[ext_resource type="Texture2D" uid="uid://cxn7lwalluanu" path="res://assets/textures/GroundDirt03_1K_BaseColor.png" id="1_ohuuh"]
+
+[sub_resource type="Curve3D" id="Curve3D_ifd1p"]
+_data = {
+"points": PackedVector3Array(2.28764, 0, -0.241481, -2.28764, 0, 0.241481, -9.83694, 0, 0.926668, -0.880205, 0, 3.07204, 0.880205, 0, -3.07204, -12.1034, 0, -11.0854, -4.3898, 0, 0.868959, 4.3898, 0, -0.868959, -3.67976, 0, -22.2581, -4.2797, 0, -4.3565, 4.2797, 0, 4.3565, 34.9129, 0, -23.3351, -0.180332, 0, -4.74146, 0.180332, 0, 4.74146, 39.1312, 0, -11.488, 6.2971, 0, -4.47108, -6.2971, 0, 4.47108, 33.5666, 0, 0.718003, 0, 0, 0, 0, 0, 0, -9.83694, 0, 0.926668),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s0w4q"]
+albedo_texture = ExtResource("1_ohuuh")
+uv1_triplanar = true
+
+[node name="test_road" type="Node3D"]
+
+[node name="Track" type="Node3D" parent="."]
+
+[node name="Path3D" type="Path3D" parent="Track"]
+curve = SubResource("Curve3D_ifd1p")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="Track"]
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Track/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0112305, 0.0601196, -0.0152588)
+polygon = PackedVector2Array(-3, 0, -3, 0.3, 3, 0.3, 3, 0)
+mode = 2
+path_node = NodePath("../../Path3D")
+path_interval_type = 0
+path_interval = 0.1
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = true
+material = SubResource("StandardMaterial3D_s0w4q")

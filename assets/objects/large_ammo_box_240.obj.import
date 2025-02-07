@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://be2vawer5xx08"
+path="res://.godot/imported/large_ammo_box_240.obj-7d39a7a33254ece39776872e94f2749d.mesh"
+
+[deps]
+
+files=["res://.godot/imported/large_ammo_box_240.obj-7d39a7a33254ece39776872e94f2749d.mesh"]
+
+source_file="res://assets/objects/large_ammo_box_240.obj"
+dest_files=["res://.godot/imported/large_ammo_box_240.obj-7d39a7a33254ece39776872e94f2749d.mesh", "res://.godot/imported/large_ammo_box_240.obj-7d39a7a33254ece39776872e94f2749d.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
