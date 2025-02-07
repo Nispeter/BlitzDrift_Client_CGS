@@ -1,8 +1,11 @@
-[gd_scene load_steps=27 format=3 uid="uid://d2mq8nit8isjn"]
+[gd_scene load_steps=33 format=3 uid="uid://d2mq8nit8isjn"]
 
 [ext_resource type="Script" path="res://scripts/cannon_controller.gd" id="1_kxmyh"]
 [ext_resource type="Script" path="res://scripts/shoot_manager.gd" id="2_utfl5"]
 [ext_resource type="PackedScene" uid="uid://bil56lwrmv3t0" path="res://prefabs/ammo_prefab.tscn" id="3_ydamp"]
+[ext_resource type="Script" path="res://scripts/ammo_manager.gd" id="4_krlh4"]
+[ext_resource type="Script" path="res://scripts/ammo_data.gd" id="5_rwpl7"]
+[ext_resource type="BoxMesh" uid="uid://d07ghouqkqktb" path="res://assets/models/cannon1.tres" id="7_jceq5"]
 
 [sub_resource type="Animation" id="Animation_be5oe"]
 length = 0.001
@@ -38,7 +41,33 @@ _data = {
 "recoil": SubResource("Animation_8pb1j")
 }
 
-[sub_resource type="BoxMesh" id="BoxMesh_f8eut"]
+[sub_resource type="Resource" id="Resource_fojre"]
+script = ExtResource("5_rwpl7")
+ammo_name = "Normal"
+ammo_scene = ExtResource("3_ydamp")
+mag_size = 2
+max_ammo = 4
+
+[sub_resource type="Resource" id="Resource_mlppp"]
+script = ExtResource("5_rwpl7")
+ammo_name = "Explosive"
+ammo_scene = ExtResource("3_ydamp")
+mag_size = 1
+max_ammo = 2
+
+[sub_resource type="Resource" id="Resource_e8yd0"]
+script = ExtResource("5_rwpl7")
+ammo_name = "Armor piercing"
+ammo_scene = ExtResource("3_ydamp")
+mag_size = 1
+max_ammo = 1
+
+[sub_resource type="Resource" id="Resource_7k1uy"]
+script = ExtResource("5_rwpl7")
+ammo_name = "Frio"
+ammo_scene = ExtResource("3_ydamp")
+mag_size = 1
+max_ammo = 3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8xei"]
 albedo_color = Color(0.146509, 0.146177, 0.289694, 1)
@@ -146,25 +175,26 @@ libraries = {
 [node name="ShootManager" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.267528, -0.962894)
 script = ExtResource("2_utfl5")
-ammo_scene = ExtResource("3_ydamp")
-max_ammo = 10
-reload_duration = 1.0
+
+[node name="AmmoManager" type="Node" parent="."]
+script = ExtResource("4_krlh4")
+ammo_catalogue = Array[ExtResource("5_rwpl7")]([SubResource("Resource_fojre"), SubResource("Resource_mlppp"), SubResource("Resource_e8yd0"), SubResource("Resource_7k1uy")])
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.068, 0, 0, 0, 0.068, 0, 0, 0, 0.867, -0.00105453, -0.271005, -0.436536)
-mesh = SubResource("BoxMesh_f8eut")
+mesh = ExtResource("7_jceq5")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_h8xei")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.0887975, 0, 0, 0, 0.0923331, 0, 0, 0, 0.263755, 0.000869036, -0.271599, -0.818788)
-mesh = SubResource("BoxMesh_f8eut")
+mesh = ExtResource("7_jceq5")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_h8xei")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.263485, 0, -0.266428, -0.310117)
-mesh = SubResource("BoxMesh_f8eut")
+mesh = ExtResource("7_jceq5")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_h8xei")
 

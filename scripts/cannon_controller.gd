@@ -1,6 +1,6 @@
 extends Node3D
 
-@onready var GameUI: CanvasLayer = get_node("/root/Main/ScreenManager/GameUI")
+@onready var GameUI: Control = get_node("/root/Main/ScreenManager/GameUI")
 @onready var inner_crosshair: Sprite2D = GameUI.get_node("Crosshair/CrosshairInner")
 @onready var outer_crosshair: Sprite2D = GameUI.get_node("Crosshair/CrosshairOuter")
 

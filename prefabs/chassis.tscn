@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/movement_controller.gd" id="1_gd1xj"]
 [ext_resource type="PackedScene" uid="uid://la6w1smr8cdw" path="res://prefabs/turret.tscn" id="2_feo0s"]
+[ext_resource type="BoxMesh" uid="uid://c3epi2r0pr8p4" path="res://assets/models/chassis1.tres" id="2_sla1p"]
 [ext_resource type="Script" path="res://scripts/buff_controller.gd" id="3_4khfu"]
 
 [sub_resource type="Curve" id="Curve_sj2x0"]
@@ -55,8 +56,6 @@ albedo_color = Color(0.262933, 0.262932, 0.262932, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_43yhi"]
 material = SubResource("StandardMaterial3D_8r3td")
 
-[sub_resource type="BoxMesh" id="BoxMesh_f8eut"]
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8xei"]
 albedo_color = Color(0.110173, 0.109837, 0.227994, 1)
 
@@ -78,7 +77,7 @@ draw_pass_1 = SubResource("BoxMesh_43yhi")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.754241, 0, 0, 0, 0.449535, 0, 0, 0, 1.01179, 0, 0, 0)
-mesh = SubResource("BoxMesh_f8eut")
+mesh = ExtResource("2_sla1p")
 surface_material_override/0 = SubResource("StandardMaterial3D_h8xei")
 
 [node name="Turret" parent="." instance=ExtResource("2_feo0s")]

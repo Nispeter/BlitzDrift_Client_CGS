@@ -2,8 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/turret_controller.gd" id="1_g76rs"]
 [ext_resource type="PackedScene" uid="uid://d2mq8nit8isjn" path="res://prefabs/cannon.tscn" id="2_0ca4k"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_f8eut"]
+[ext_resource type="BoxMesh" uid="uid://b5cnrt5tlr3ub" path="res://assets/models/turret1.tres" id="2_qyclq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8xei"]
 albedo_color = Color(0.126763, 0.126423, 0.256213, 1)
@@ -15,7 +14,7 @@ rotation_speed = 1.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.401513, 0, 0, 0, 0.255422, 0, 0, 0, 0.535049, 0, 0, 0)
-mesh = SubResource("BoxMesh_f8eut")
+mesh = ExtResource("2_qyclq")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_h8xei")
 

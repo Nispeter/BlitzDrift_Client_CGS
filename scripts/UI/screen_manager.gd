@@ -4,6 +4,17 @@ var screen_stack: Array = []
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	_init_scene_ui()
+
+func _init_scene_ui():
+	var current_scene = get_tree().current_scene
+	if current_scene.name == "TankCustomization":
+		_push_screen($TankCustomizationScreen)
+	elif current_scene.name == "Main":
+		_push_screen($GameUI)
+	elif current_scene.name == "MainMenu":
+		_push_screen($MainMenu)
+
 
 func open_screen(screen: Screen) -> void:
 	_push_screen(screen)
@@ -33,10 +44,11 @@ func _push_screen(screen: Screen) -> void:
 		get_tree().paused = false 
 
 func _pop_screen() -> void:
-	if screen_stack.size() == 0:
+	var current_screen = screen_stack.back()
+	if screen_stack.size() == 0 or current_screen.is_base_screen:
 		return
 	
-	var current_screen = screen_stack.pop_back()
+	current_screen = screen_stack.pop_back()
 	current_screen.deactivate()
 
 	if screen_stack.size() > 0:
@@ -59,10 +71,11 @@ func _update_paused_state() -> void:
 	get_tree().paused = should_pause
 	
 func _input(event: InputEvent) -> void:
+	var current_screen = screen_stack.back()
 	if Input.is_action_just_pressed("pause"):
-		if screen_stack.size() > 0:
+		if !screen_stack.back().is_base_screen:
 			back()
-		else: 
+		elif current_screen.allows_pause: 
 			togglePause()
 	
 func toggleScreen(screen: Screen):
@@ -76,3 +89,4 @@ func togglePause():
 
 func toggleSettings():
 	toggleScreen($SettingsScreen)
+	

@@ -179,7 +179,10 @@ func update_labels() -> void:
 	speed_label.text = "Speed: %.2f" % (base_speed * speed_multiplier * speed_revolutions)
 	gear_label.text = "Gear: %s" % str(current_gear)
 	
-func apply_speed_boost(amount: float) -> void:
-	base_speed += amount
-	if base_speed < 0:  
-		base_speed = 0
+func apply_speed_boost(amount: float, is_multiplier: bool) -> void:
+	if is_multiplier:
+		base_speed *= amount
+	else:
+		base_speed += amount
+		if base_speed < 0:  
+			base_speed = 0

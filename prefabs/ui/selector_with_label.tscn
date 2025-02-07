@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpxrrycgaqlup"]
+
+[ext_resource type="Script" path="res://scripts/ui/part_selector_component.gd" id="1_5aiop"]
+
+[node name="part_selector" type="VBoxContainer" node_paths=PackedStringArray("next_button", "prev_button", "part_name_label", "part_type_label")]
+offset_right = 442.0
+offset_bottom = 40.0
+script = ExtResource("1_5aiop")
+next_button = NodePath("HBoxContainer/Button2")
+prev_button = NodePath("HBoxContainer/Button")
+part_name_label = NodePath("HBoxContainer/Label")
+part_type_label = NodePath("Label2")
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "TANK PART
+"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "<"
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "TANK PART NAME"
+
+[node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = ">
+"
+
+[node name="MarginContainer4" type="MarginContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="MarginContainer5" type="MarginContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="MarginContainer6" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2

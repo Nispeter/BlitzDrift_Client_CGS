@@ -1,0 +1,94 @@
+[gd_scene load_steps=14 format=3 uid="uid://0k00ecatnd63"]
+
+[ext_resource type="PackedScene" uid="uid://c0ox864tdbhln" path="res://scenes/screen_manager.tscn" id="1_7yexw"]
+[ext_resource type="Script" path="res://scripts/rotating_camera.gd" id="2_7mrw1"]
+[ext_resource type="Shader" path="res://shaders/dark_and_darker.gdshader" id="3_egnag"]
+[ext_resource type="Texture2D" uid="uid://l08vd27e3y7a" path="res://assets/images/oil-6-32x.png" id="4_6equu"]
+[ext_resource type="PackedScene" uid="uid://de0uly6dfjyh0" path="res://assets/models/Tanks!.fbx" id="5_4wncy"]
+[ext_resource type="Shader" path="res://shaders/gameboy.gdshader" id="5_mnq0x"]
+[ext_resource type="Texture2D" uid="uid://c0pg1r6oxkysv" path="res://assets/images/twilight-5-8x.png" id="6_8vj7a"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_vofxj"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_gky8c"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_yw7bd"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ij3re"]
+render_priority = 0
+shader = ExtResource("3_egnag")
+shader_parameter/pixel_size = 2
+shader_parameter/palette_size = 6.0
+shader_parameter/palette_texture = ExtResource("4_6equu")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ic6yj"]
+shader = ExtResource("5_mnq0x")
+shader_parameter/brightness = 4.75e-08
+shader_parameter/source_palette = ExtResource("6_8vj7a")
+shader_parameter/target_palette = ExtResource("6_8vj7a")
+
+[sub_resource type="Environment" id="Environment_eplak"]
+background_mode = 2
+background_energy_multiplier = 0.0
+ambient_light_energy = 0.0
+
+[node name="MainMenu" type="Node3D"]
+
+[node name="ScreenManager" parent="." instance=ExtResource("1_7yexw")]
+
+[node name="CameraFocus" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.85843, 0.778321, 2.23902)
+visible = false
+mesh = SubResource("TorusMesh_vofxj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CameraFocus"]
+mesh = SubResource("PrismMesh_gky8c")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CameraFocus"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8155, 1.21729, 0.280071)
+mesh = SubResource("PrismMesh_gky8c")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.23482, -0.361772, -0.902209, 0, -0.928161, 0.372179, -0.972039, -0.087395, -0.217951, -42.2321, 24.1108, -1.27299)
+visible = false
+light_energy = 1.2
+sky_mode = 1
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.928161, 0.372178, 0, -0.372178, -0.928161, 0, 2.08281, -4.48362)
+script = ExtResource("2_7mrw1")
+target_node_path = NodePath("../CameraFocus")
+rotation_speed = 10.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.212176, -1.63889)
+mesh = SubResource("BoxMesh_yw7bd")
+surface_material_override/0 = SubResource("ShaderMaterial_ij3re")
+
+[node name="ColorRect" type="ColorRect" parent="Camera3D"]
+visible = false
+material = SubResource("ShaderMaterial_ic6yj")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Env" type="Node3D" parent="."]
+transform = Transform3D(0.23482, -0.361772, -0.902209, 0, -0.928161, 0.372178, -0.972039, -0.0873948, -0.217951, -19.7257, 24.1108, -1.27299)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Env"]
+environment = SubResource("Environment_eplak")
+
+[node name="Tanks!" parent="." instance=ExtResource("5_4wncy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.759801, -2.34937, 1.12458)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(0.00680694, -0.848048, 0.529876, 0.0108934, 0.529919, 0.847978, -0.999918, 0, 0.0128452, -1.51358, 13.2209, 2.94112)
+light_energy = 10.0
+light_indirect_energy = 1.02
+light_volumetric_fog_energy = 1.64
+spot_range = 17.756
+spot_attenuation = 0.55
+spot_angle = 90.5

@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=3 uid="uid://sos7lwunnudf"]
+
+[ext_resource type="Script" path="res://scripts/dodge_ammo.gd" id="1_3k6u5"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v7x47"]
+radius = 3.68239
+height = 11.5588
+
+[sub_resource type="Curve" id="Curve_rlfa5"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_dy6mp"]
+curve = SubResource("Curve_rlfa5")
+
+[sub_resource type="Curve" id="Curve_7icuu"]
+max_value = 3.0
+_data = [Vector2(0, 1.08791), 0.0, 0.0, 0, 0, Vector2(0.992754, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_d7eat"]
+curve = SubResource("Curve_7icuu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_c6wrq"]
+particle_flag_align_y = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 0, -1)
+initial_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+scale_over_velocity_curve = SubResource("CurveTexture_d7eat")
+alpha_curve = SubResource("CurveTexture_dy6mp")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w74n6"]
+transparency = 1
+
+[sub_resource type="PrismMesh" id="PrismMesh_ak28e"]
+material = SubResource("StandardMaterial3D_w74n6")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="DodgeAmmo" type="RigidBody3D" groups=["Projectiles"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.23059)
+gravity_scale = 4.0
+contact_monitor = true
+max_contacts_reported = 1000
+script = ExtResource("1_3k6u5")
+lifetime = 0.01
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["Projectiles"]]
+transform = Transform3D(0.0166841, 0, 0, 0, -1.18335e-09, -0.0161998, 0, 0.0270718, -7.08116e-10, 0, -2.98023e-08, 0.0623178)
+shape = SubResource("CapsuleShape3D_v7x47")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 30
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_c6wrq")
+draw_pass_1 = SubResource("PrismMesh_ak28e")
+
+[connection signal="body_entered" from="." to="." method="_on_collision"]

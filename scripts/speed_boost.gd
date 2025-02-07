@@ -1,6 +1,7 @@
 extends Area3D
 
-@export var boost_amount: float = 20.0   
+@export var boost_amount: float = 20.0  
+@export var is_multiplier: bool = false 
 @export var boost_duration: float = 5.0   
 
 var boosted_tanks: Dictionary = {}
@@ -20,7 +21,7 @@ func _on_body_entered(body: Node) -> void:
 		var tank_chassis = body.find_child("Chassis")
 		if tank_chassis.has_method("apply_speed_boost"): 
 			if not boosted_tanks.has(body):  
-				tank_chassis.apply_speed_boost(boost_amount)
+				tank_chassis.apply_speed_boost(boost_amount, is_multiplier)
 				boosted_tanks[tank_chassis] = boost_duration
 
 func _on_body_exited(body: Node) -> void:
@@ -30,5 +31,8 @@ func _on_body_exited(body: Node) -> void:
 func _remove_boost(tank: Node) -> void:
 	if tank in boosted_tanks:
 		if tank.has_method("apply_speed_boost"):
-			tank.apply_speed_boost(-boost_amount) 
+			if !is_multiplier:
+				tank.apply_speed_boost(-boost_amount, is_multiplier) 
+			else:
+				tank.apply_speed_boost(1/boost_amount, is_multiplier) 
 		boosted_tanks.erase(tank)
