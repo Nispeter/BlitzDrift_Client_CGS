@@ -1,5 +1,5 @@
 extends Camera3D
-
+## Script that handles the movement of the camera of the  tank customization menu.
 #NOTE: making a new camera controller was a bad idea, it was better to make a rotation script for each tank object with a scatic camera
 
 # Adjustable parameters

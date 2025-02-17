@@ -1,4 +1,5 @@
 extends Node
+## Script that loads the tank customization resource from global ptaths 
 
 @export var tank_config: TankConfigData
 @export var base_paths := {
@@ -13,6 +14,7 @@ func _ready():
 	if load_tank_resource():
 		apply_tank_parts()
 
+## load resource from global "tank loadout fp" 
 func load_tank_resource() -> bool:
 	if ResourceLoader.exists(TankParts.tank_loadout_fp):
 		var tank_data = ResourceLoader.load(TankParts.tank_loadout_fp)
@@ -22,6 +24,7 @@ func load_tank_resource() -> bool:
 			return true
 	return false
 
+## change the meshes of the tank parts from the stored resouce 
 func apply_tank_parts():
 	for part_type in ["cannon", "turret", "chassis"]:
 		if part_type in TankParts.tank_parts and part_type in tank_config.selected_indices:
@@ -35,6 +38,8 @@ func apply_tank_parts():
 					part_node.material_override = create_material_with_color(part_data["color"])
 					print("Applied part: ", part_data["name"], " at ", part_type)
 
+## create a new material to fit the stored colour
+# TODO: load texture instead of creating material inplace
 func create_material_with_color(color: Color) -> Material:
 	var material = StandardMaterial3D.new()
 	material.albedo_color = color

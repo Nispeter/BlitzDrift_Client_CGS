@@ -1,14 +1,11 @@
 extends RigidBody3D
 class_name Ammo
 
+## Base script for bullets, controlls collisions 
+
 @export var lifetime: float = 5.0 
 @export var mag_size: int = 1
 @export var total_ammo: int
-
-#@export var can_ricochet: bool = true
-#@export var ricochet_angle: int = 15
-#@export var max_bounces: int = 2
-#var current_bounces:int = 0
 
 var shooter: Node3D = null
 var lifetime_timer: Timer
@@ -22,6 +19,7 @@ func _ready():
 	lifetime_timer.connect("timeout", Callable(self, "queue_free"))
 	add_child(lifetime_timer)
 	
+# destroy or deal damage on collision 
 func _on_collision(body: Node) -> void:
 	if body == shooter:
 		return
@@ -38,17 +36,7 @@ func _on_collision(body: Node) -> void:
 		on_hit(body)
 		queue_free()
 
-#FIXME: this shit is cursed yo (needs more math)
-func ricochet(normal: Vector3) -> void:
-	var reflected_velocity: Vector3 = - linear_velocity + 2 * linear_velocity.dot(normal) * normal
-	#var random_axis: Vector3 = reflected_velocity.cross(normal).normalized()
-	#var random_angle: float = deg_to_rad(randf_range(0, 15)) 
-	#reflected_velocity = reflected_velocity.rotated(random_axis, random_angle)
-	linear_velocity = reflected_velocity * 0.8
-	#print("ric " + str(linear_velocity))
-	
-
-
+# behaviour on hitting a collision body
 func on_hit(body: Object) -> void:
 	print("Bullet hit: ", body.name)
 	if body.has_node("shootable"):
@@ -64,7 +52,22 @@ func _on_area_entered(area: Area3D) -> void:
 	if area != shooter:
 		on_hit(area)
 		
+#FIXME: this shit is cursed yo (needs more math)
+func ricochet(normal: Vector3) -> void:
+	var reflected_velocity: Vector3 = - linear_velocity + 2 * linear_velocity.dot(normal) * normal
+	#var random_axis: Vector3 = reflected_velocity.cross(normal).normalized()
+	#var random_angle: float = deg_to_rad(randf_range(0, 15)) 
+	#reflected_velocity = reflected_velocity.rotated(random_axis, random_angle)
+	linear_velocity = reflected_velocity * 0.8
+	#print("ric " + str(linear_velocity))
+	
+
 		
+#@export var can_ricochet: bool = true
+#@export var ricochet_angle: int = 15
+#@export var max_bounces: int = 2
+#var current_bounces:int = 0
+
 #FIXME: this shit is cursed yo (needs more math)
 #func ricochet(normal: Vector3) -> void:
 	#var reflected_velocity: Vector3 = - linear_velocity + 2 * linear_velocity.dot(normal) * normal

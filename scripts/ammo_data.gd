@@ -1,6 +1,8 @@
 class_name AmmoData
 extends Resource
 
+## Resouce used by ammo manager to handle ammmo change
+
 @export var ammo_name: String
 @export var ammo_scene: PackedScene
 @export var mag_size: int 				#mag size

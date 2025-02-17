@@ -1,5 +1,8 @@
 extends Node
 
+## Script that handles the tank customization screen, connecting buttons to functions that changes meshes
+## depending on the paths stored on the .res
+
 @export var tank_preview: NodePath
 @export var tank_config: TankConfigData
 var saved_resources: Dictionary = {}
@@ -21,7 +24,7 @@ func _ready():
 	update_preview()
 	setup_selectors()
 
-# Configura los nodos selectores para las partes del tanque
+# configure node selector for tank parts 
 func setup_selectors():
 	for part_name in part_selectors.keys():
 		var selector_path = part_selectors[part_name]
@@ -35,7 +38,7 @@ func setup_selectors():
 		else:
 			print("Selector node not found for:", part_name)
 
-# Cambia la parte seleccionada
+# change selected part
 func change_part(part_name: String, direction: int):
 	if not TankParts.tank_parts.has(part_name):  
 		print("Part name not found:", part_name)
@@ -47,7 +50,7 @@ func change_part(part_name: String, direction: int):
 		tank_config.selected_indices[part_name] = options.size() - 1
 	update_preview()
 
-# Actualiza la vista previa en el nodo del tanque
+# update preview in the nak node part 
 func update_preview():
 	if not tank_preview:
 		print("Tank preview node path not set.")
@@ -70,10 +73,12 @@ func update_preview():
 		base_node.material_override = StandardMaterial3D.new()
 		base_node.material_override.albedo_color = selected_option["color"]
 
+# store resource with selected parts 
 func save_tank():
 	print("Saving tank resource to: ",TankParts.tank_loadout_fp )
 	ResourceSaver.save(tank_config, TankParts.tank_loadout_fp)
 	
+# same for loading 
 func load_tank_resource() -> bool:
 	if ResourceLoader.exists(TankParts.tank_loadout_fp):
 		var tank_data = ResourceLoader.load(TankParts.tank_loadout_fp)

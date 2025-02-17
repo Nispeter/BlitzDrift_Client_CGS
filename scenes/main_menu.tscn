@@ -63,11 +63,11 @@ rotation_speed = 10.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.212176, -1.63889)
+visible = false
 mesh = SubResource("BoxMesh_yw7bd")
 surface_material_override/0 = SubResource("ShaderMaterial_ij3re")
 
 [node name="ColorRect" type="ColorRect" parent="Camera3D"]
-visible = false
 material = SubResource("ShaderMaterial_ic6yj")
 anchors_preset = 15
 anchor_right = 1.0

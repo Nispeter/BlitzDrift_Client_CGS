@@ -165,7 +165,6 @@ is_base_screen = true
 allows_pause = false
 
 [node name="ColorRect" type="ColorRect" parent="MainMenu"]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -177,7 +176,6 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.392157)
 
 [node name="TitleBox_1" type="HBoxContainer" parent="MainMenu"]
-visible = false
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -194,7 +192,6 @@ text = "BLITZ DRIFT"
 horizontal_alignment = 1
 
 [node name="ButtonsBox_1" type="VBoxContainer" parent="MainMenu"]
-visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -240,6 +237,7 @@ text = "EXIT
 alignment = 0
 
 [node name="TitleBox_2" type="HBoxContainer" parent="MainMenu"]
+visible = false
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -256,6 +254,7 @@ text = "BLITZ DRIFT"
 horizontal_alignment = 1
 
 [node name="ButtonsBox_2" type="VBoxContainer" parent="MainMenu"]
+visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5

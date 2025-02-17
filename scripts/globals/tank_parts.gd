@@ -1,6 +1,8 @@
 extends Node
-#NOTE: Global class that stores filepaths of customizable endpoints
+## Global class that stores filepaths of customizable tank parts 
+## Tank resource storage 
 var tank_loadout_fp = "user://tank_loadout.res"
+## Tank mesh part absolute pathing 
 var tank_parts = {
 	"cannon": [
 		{"mesh": preload("res://assets/models/cannon1.tres"), "color": Color(0, 0, 0.5), "name": "cannon 1"},

@@ -1,5 +1,7 @@
 extends Node
 
+## This script handles the ammunition system for a game, managing different ammo types, reloading mechanics, and UI updates
+
 @export var reload_duration: float = 2.0
 @export var ammo_catalogue: Array[AmmoData] = []
 
@@ -23,6 +25,8 @@ func _ready():
 		_change_ammo(0) 
 	else:
 		push_error("Ammo catalogue is empty!")
+
+# ammmo labels from in game ui 
 
 func _create_ammo_labels():
 	for child in ammo_section.get_children():
